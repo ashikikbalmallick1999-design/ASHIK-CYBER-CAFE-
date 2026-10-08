@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASHIK CYBER CAFE - PORTAL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#eef2ff}
+.h{background:#0f172a;color:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{font-weight:900;color:#38bdf8;font-size:20px}
+.c{max-width:1100px;margin:auto;padding:12px}
+.box{background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.1);margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:768px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;text-align:center;padding-bottom:8px}
+.card.ig{height:100px;background:linear-gradient(135deg,#0f172a,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:45px;color:#fff}
+.card b{display:block;padding:8px 0 2px;color:#0f172a;font-size:14px}
+.pr{color:#16a34a;font-weight:900;font-size:15px}
+.opr{color:#94a3b8;text-decoration:line-through;font-size:12px}
+.btn{width:92%;margin:8px 4%;padding:10px;border:0;border-radius:8px;font-weight:800;cursor:pointer}
+.b1{background:#0f172a;color:#fff}
+.b2{background:#22c55e;color:#000}
+input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #cbd5e1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:99;padding:12px}
+.mbx{background:#fff;border-radius:16px;padding:18px;width:100%;max-width:450px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{border:1px solid #cbd5e1;padding:6px;text-align:left}
+th{background:#0f172a;color:#fff}
+</style>
+</head>
+<body>
+<div class="h">
+<div class="logo">ASHIK CYBER CAFE</div>
+<div style="font-size:12px">Wallet: <span id="wb" style="color:#22c55e;font-weight:900">₹0</span> | <span id="un" style="color:#facc15"></span></div>
+</div>
+<div class="c">
+
+<div id="lg" class="box" style="max-width:400px;margin:40px auto;text-align:center">
+<h2 style="color:#0f172a">RETAILER PORTAL LOGIN</h2>
+<input id="lu" placeholder="Username">
+<input id="lp" type="password" placeholder="Password">
+<button class="btn b1" onclick="login()">LOGIN</button>
+<button class="btn" style="background:#e2e8f0" onclick="rg.style.display='block';lg.style.display='none'">New Retailer Register</button>
+<p style="font-size:11px;color:gray;margin-top:8px">Admin Login: ashi2248 / Ashik@2026</p>
+</div>
+
+<div id="rg" class="box" style="display:none;max-width:400px;margin:40px auto">
+<h3>Retailer Registration</h3>
+<input id="ru" placeholder="Create Username">
+<input id="rp" type="password" placeholder="Create Password">
+<input id="rm" placeholder="Mobile Number">
+<button class="btn b2" onclick="reg()">REGISTER</button>
+<button class="btn b1" onclick="location.reload()">Back to Login</button>
+</div>
+
+<div id="mp" style="display:none">
+<div class="box"><b style="color:#0f172a">🔥 All Services (Click Apply - Wallet theke taka katbe)</b><p style="font-size:12px;color:gray">Details dilei Wallet theke auto taka kete jabe</p></div>
+<div class="grid" id="sg"></div>
+<div style="text-align:center"><button style="background:red;color:#fff;padding:8px 20px;border:0;border-radius:8px;margin-top:12px" onclick="location.reload()">Logout</button></div>
+</div>
+
+<div id="ad" class="box" style="display:none">
+<h2 style="color:#0f172a">ADMIN PANEL - Tumi Taka Add Korbe</h2>
+<div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">
+<input id="au" placeholder="Retailer Username" style="flex:1;min-width:140px">
+<input id="aa" type="number" placeholder="Amount Ex: 1000" style="flex:1;min-width:100px">
+<button class="btn b2" style="width:140px" onclick="addW()">Add to Wallet</button>
+</div>
+<h3 style="margin:10px 0;color:#0f172a">📋 Sob Apply (Date/Time Soho)</h3>
+<div style="overflow:auto;max-height:500px">
+<table><thead><tr><th>Date & Time</th><th>Retailer</th><th>Service</th><th>Customer Name</th><th>Aadhar No</th><th>Mobile</th><th>IP Address</th><th>Price</th></tr></thead><tbody id="at"></tbody></table>
+</div>
+<button style="background:red;color:#fff;padding:8px 20px;border:0;border-radius:8px;margin-top:12px" onclick="location.reload()">Logout Admin</button>
+</div>
+
+</div>
+
+<div id="md" class="modal"><div class="mbx">
+<h3 id="ft" style="color:#0f172a"></h3>
+<input id="fn" placeholder="Customer Name (Aadhar as per)">
+<input id="fa" placeholder="Aadhar Number 12 Digit" maxlength="12">
+<input id="fm" placeholder="Mobile Number 10 Digit">
+<input id="fd" placeholder="Business Name / Address">
+<input id="fi" readonly style="background:#f1f5f9;font-size:12px">
+<p style="font-size:11px;color:gray">IP & Date auto save hobe Admin e</p>
+<button class="btn b2" onclick="doApply()">Pay & Apply Now</button>
+<button class="btn b1" onclick="md.style.display='none'">Cancel</button>
+<p id="fe" style="color:red;font-size:12px;text-align:center"></p>
+</div></div>
+
+<script>
+const SV=[{n:"Aadhar Mobile Link",p:180,o:250,ic:"📱"},{n:"Udyam Registration",p:300,o:500,ic:"🏭"},{n:"Aadhar Address Update",p:200,o:350,ic:"🏠"},{n:"PAN Card New",p:250,o:400,ic:"💳"},{n:"Voter Card Apply",p:150,o:300,ic:"🗳️"},{n:"Trade License",p:500,o:800,ic:"📄"},{n:"Caste Certificate",p:200,o:350,ic:"📜"},{n:"Income Certificate",p:200,o:350,ic:"💰"},{n:"Residential Certificate",p:200,o:350,ic:"🏡"},{n:"GST Registration",p:600,o:1000,ic:"🧾"},{n:"MSME Update",p:250,o:400,ic:"🏢"},{n:"Passport Apply",p:1000,o:1500,ic:"✈️"}];
+let users=JSON.parse(localStorage.getItem('ashik_u_final')||'[]'),apps=JSON.parse(localStorage.getItem('ashik_a_final')||'[]'),cur=null,cs='',cp=0,cip='';
+function save(){localStorage.setItem('ashik_u_final',JSON.stringify(users));localStorage.setItem('ashik_a_final',JSON.stringify(apps));}
+function reg(){let u=ru.value.trim(),p=rp.value.trim(),m=rm.value.trim();if(!u||!p||!m)return alert('Sob fill koro');if(users.find(x=>x.u==u))return alert('Username already ache');users.push({u,p,m,b:0});save();alert('Registered! Ebar Login koro');location.reload();}
+async function getIP(){try{let r=await fetch('https://api.ipify.org?format=json');let j=await r.json();return j.ip}catch{return 'IP-'+Math.floor(Math.random()*999999)}}
+async function login(){
+let u=lu.value.trim(),p=lp.value.trim();
+if((u=='ashi2248'||u=='ashik2248')&&p=='Ashik@2026'){lg.style.display='none';ad.style.display='block';renderA();return;}
+let f=users.find(x=>x.u==u&&x.p==p);if(!f)return alert('Wrong Username/Password');
+cur=f;un.innerText=f.u;wb.innerText='₹'+f.b;lg.style.display='none';mp.style.display='block';renderS();
+}
+function renderS(){let h='';SV.forEach(s=>{h+=`<div class="card"><div class="ig">${s.ic}</div><b>${s.n}</b><span class="pr">₹${s.p}</span> <span class="opr">₹${s.o}</span><button class="btn b1" onclick="openF('${s.n}',${s.p})">APPLY NOW</button></div>`});sg.innerHTML=h;}
+async function openF(n,p){cs=n;cp=p;cip=await getIP();ft.innerText=n+' - Price ₹'+p;fi.value='IP: '+cip+' | Date: '+new Date().toLocaleString();fn.value='';fa.value='';fm.value='';fd.value='';fe.innerText='';md.style.display='flex';}
+function doApply(){
+let nm=fn.value.trim(),ad=fa.value.trim(),mo=fm.value.trim();
+if(!nm||ad.length!=12||mo.length!=10){fe.innerText='Name + 12 Digit Aadhar + 10 Digit Mobile sothik dao';return;}
+if(cur.b<cp){alert('❌ Wallet e taka nei! Ache ₹'+cur.b+' Lagbe ₹'+cp+' | Admin ke bolo Add korte');return;}
+cur.b-=cp;let i=users.findIndex(x=>x.u==cur.u);users[i].b=cur.b;wb.innerText='₹'+cur.b;
+apps.push({dt:new Date().toLocaleString(),ret:cur.u,svc:cs,name:nm,aadhar:ad,mob:mo,ip:cip,price:cp});
+save();md.style.display='none';alert('✅ SUCCESS! ₹'+cp+' Wallet theke kete geche! Apply Admin e chole geche');
+}
+function renderA(){let h='';[...apps].reverse().forEach(a=>{h+=`<tr><td>${a.dt}</td><td>${a.ret}</td><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td>${a.mob}</td><td>${a.ip}</td><td>₹${a.price}</td></tr>`});at.innerHTML=h||'<tr><td colspan=8 style="text-align:center">Kono Apply Ase Ni</td></tr>';}
+function addW(){let u=au.value.trim(),a=parseInt(aa.value);if(!u||!a)return alert('Username + Amount dao');let f=users.find(x=>x.u==u);if(!f)return alert('Retailer pawa jay ni');f.b+=a;save();alert('✅ ₹'+a+' Add Hoye Geche '+u+' er Wallet e');renderA();}
+</script>
+</body>
+</html>
