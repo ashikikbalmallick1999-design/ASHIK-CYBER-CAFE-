@@ -1,135 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASHIK CYBER CAFE - All Services + Payment</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ASHIK CYBER CAFE - Retailer Portal</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
-body{background:#06162f;color:#fff;min-height:100vh}
-.login{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px}
-.box{background:#fff;color:#000;padding:25px;border-radius:18px;width:100%;max-width:380px}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ccc;border-radius:10px}
-button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
-.tab{display:flex;gap:10px;margin-bottom:15px}.tab button{flex:1;background:#eee;color:#000}.tab button.active{background:#0a1931;color:#fff}
-.dash{display:none;max-width:1100px;margin:0 auto;padding:15px}
-.head{background:#fff;color:#000;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:10px;z-index:10}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center}
-.card b{display:block;font-size:12px;margin:4px 0}
-.card button{background:#25D366;padding:6px;border-radius:20px;font-size:11px;margin-top:6px}
-.cat{background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin:20px 0 6px;display:inline-block}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:99;padding:15px}
-.modalBox{background:#fff;color:#000;padding:20px;border-radius:15px;width:100%;max-width:450px;max-height:95vh;overflow:auto}
-.listBox{background:#fff;color:#000;padding:15px;border-radius:12px;margin-top:15px}
-.appItem{border-left:5px solid #ffcc00;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;line-height:1.5;background:#f9f9f9}
-.status{padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold;color:#fff;display:inline-block}
-.pending{background:orange}.done{background:green}.working{background:blue}.paid{background:green}
-@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f0f2f5}
+.header{background:linear-gradient(90deg,#0f172a,#1e40af);color:#fff;padding:15px;text-align:center;font-weight:900;font-size:22px;letter-spacing:1px}
+.header span{color:#facc15}
+.card{background:#fff;max-width:450px;margin:20px auto;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+input,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+button{width:100%;padding:12px;background:#1e40af;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer;margin-top:10px}
+button:hover{background:#0f172a}
+.small{font-size:13px;color:#666;text-align:center;margin-top:10px}
+.wallet{background:#e0f2fe;border:2px dashed #0284c7;padding:12px;border-radius:10px;text-align:center;font-weight:800;margin:10px 0}
+.price-tag{background:#fef9c3;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:700;display:inline-block}
+.hidden{display:none}
+.admin-box{background:#fffbeb;border:2px solid #f59e0b}
+table{width:100%;font-size:12px;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:6px;text-align:left}
+th{background:#1e40af;color:#fff}
+.qrbox{text-align:center;background:#f8fafc;padding:15px;border-radius:10px;border:2px solid #16a34a}
 </style>
 </head>
 <body>
-<div id="L" class="login">
-<div class="box">
-<h2 style="text-align:center;color:#0a1931">ASHIK CYBER CAFE</h2>
-<p style="text-align:center;font-size:12px;margin:5px 0 12px">All Services - Payment Mandatory</p>
-<div class="tab"><button id="t1" class="active" onclick="showLogin()">LOGIN</button><button id="t2" onclick="showReg()">REGISTRATION</button></div>
-<div id="loginForm"><input id="u" placeholder="Username"><input id="p" type="password" placeholder="Password"><button onclick="doLogin()">LOGIN</button><p style="text-align:center;font-size:11px;color:#888;margin-top:8px">Admin: ashik / 1234</p></div>
-<div id="regForm" style="display:none"><input id="rn" placeholder="Full Name"><input id="rp" placeholder="Mobile"><input id="ru" placeholder="Create Username"><input id="rpass" type="password" placeholder="Create Password"><button onclick="doReg()" style="background:#25D366">REGISTER NOW</button></div>
+<div class="header">💻 ASHIK <span>CYBER CAFE</span> 💻<br><small style="font-size:12px;font-weight:400">Retailer Portal - Howrah, Bagnan</small></div>
+
+<!-- LOGIN CARD -->
+<div id="loginCard" class="card">
+<h3 style="text-align:center">Retailer Login / Admin Login</h3>
+<input id="lUser" placeholder="Username (Admin: ashik)">
+<input id="lPass" type="password" placeholder="Password (Admin: 1234)">
+<button onclick="doLogin()">LOGIN</button>
+<div class="small">Retailer not registered? <a href="#" onclick="showReg()">New Retailer Register</a></div>
+<div id="loginMsg" class="small" style="color:red"></div>
+</div>
+
+<!-- REG CARD -->
+<div id="regCard" class="card hidden">
+<h3 style="text-align:center">New Retailer Registration</h3>
+<input id="rShop" placeholder="Shop Name">
+<input id="rMobile" placeholder="Mobile Number">
+<input id="rUser" placeholder="Create Username">
+<input id="rPass" placeholder="Create Password">
+<button onclick="doReg()">REGISTER NOW</button>
+<div class="small"><a href="#" onclick="showLogin()">Back to Login</a></div>
+</div>
+
+<!-- RETAILER DASHBOARD -->
+<div id="retPanel" class="card hidden" style="max-width:900px">
+<h3>Welcome <span id="retName"></span></h3>
+<div class="wallet">💰 Wallet Balance: Rs <span id="walletBal">0</span><br><small>Min Balance for Aadhaar: Rs 180</small></div>
+<button onclick="showRecharge()" style="background:#16a34a">➕ WALLET RECHARGE - Pay to Admin</button>
+<button onclick="showApply()" style="background:#0ea5e9">📝 NEW CUSTOMER APPLY</button>
+<button onclick="logout()" style="background:#64748b">Logout</button>
+
+<div id="rechargeBox" class="hidden">
+<div class="qrbox">
+<h4>Pay to ASHIK CYBER CAFE (Admin)</h4>
+<p><b>Axis Bank 2248 QR: 6289361870-10@axl</b></p>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=6289361870-10@axl&pn=ASHIK%20CYBER%20CAFE&am=500" style="margin:10px"><br>
+<input id="reUtr" placeholder="Enter UTR / Transaction ID (12 digit)">
+<input id="reAmt" type="number" placeholder="Amount Paid Eg: 500">
+<button onclick="submitRecharge()" style="background:#16a34a">Submit Recharge Request</button>
+<small>Admin check kore Wallet e taka add kore debe 10min e</small>
 </div>
 </div>
-<div id="D" class="dash">
-<div class="head"><b id="welcome">Welcome</b><div><button onclick="toggleView()" id="viewBtn" style="width:auto;padding:6px 12px;background:#ffcc00;color:#000;margin-right:5px">ADMIN DASHBOARD</button><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div></div>
-<div id="adminPanel">
-<div class="listBox"><h3>👑 ADMIN - Sob Application + Payment</h3>
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-<div style="background:orange;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Pending: <b id="cPending">0</b></div>
-<div style="background:blue;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Working: <b id="cWorking">0</b></div>
-<div style="background:green;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Done: <b id="cDone">0</b></div>
-<div style="background:#0a1931;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Total: <b id="cTotal">0</b></div>
-<div style="background:green;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Paid: <b id="cPaid">0</b></div>
-</div><div id="adminList" style="max-height:600px;overflow:auto;margin-top:12px"></div>
-<button onclick="if(confirm('Clear all?')){localStorage.removeItem('all_applications');renderAdmin()}" style="background:red;margin-top:10px">Clear All</button>
+
+<div id="applyBox" class="hidden">
+<h4>Apply New Service</h4>
+<select id="service" onchange="updatePrice()"></select>
+<div id="priceShow" class="price-tag"></div>
+<input id="cName" placeholder="Customer Name">
+<input id="cMobile" placeholder="Customer Mobile">
+<input id="cAadhaar" placeholder="Customer Aadhaar">
+<input id="cNote" placeholder="Note (Optional)">
+<button onclick="submitApply()">Apply Now (Deduct from Wallet)</button>
+<div id="applyMsg" class="small"></div>
 </div>
-<div class="listBox" style="border:2px solid #0a1931;text-align:center">
-<h3>💰 Payment QR - Axis Bank 2248</h3><p>UPI ID: 6289361870-10@axl</p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=6289361870-10@axl%26pn=Ashik%20Cyber%20Cafe%26cu=INR" style="width:250px;margin:10px auto;border:2px solid #000;border-radius:12px;display:block">
-<p style="font-size:11px">PhonePe • GPay • Paytm • Any UPI</p>
-<a href="upi://pay?pa=6289361870-10@axl&pn=Ashik%20Cyber%20Cafe&cu=INR" style="background:#25D366;color:#fff;padding:10px 20px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:10px;font-weight:bold">💸 Pay Now</a>
+
+<h4 style="margin-top:20px">My Applications</h4>
+<table><thead><tr><th>Service</th><th>Customer</th><th>Price</th><th>Status</th></tr></thead><tbody id="retTable"></tbody></table>
+<h4 style="margin-top:20px">My Recharge History</h4>
+<table><thead><tr><th>Amount</th><th>UTR</th><th>Status</th></tr></thead><tbody id="retRechargeTable"></tbody></table>
 </div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminPanel" class="card hidden" style="max-width:1100px">
+<h3>👑 ASHIK CYBER CAFE - ADMIN PANEL</h3>
+<button onclick="logout()" style="background:#64748b;width:auto;padding:6px 15px">Logout</button>
+
+<div class="card admin-box">
+<h4>💰 Add Wallet Balance to Retailer</h4>
+<input id="addRetUser" placeholder="Retailer Username">
+<input id="addRetAmt" type="number" placeholder="Amount Eg: 500">
+<button onclick="adminAddWallet()">Add to Wallet</button>
 </div>
-<div id="serviceArea" style="display:none">
-<div class="cat">📋 CERTIFICATE - 6</div><div class="grid">
-<div class="card"><span>📄</span><b>Birth Certificate</b><button onclick="openForm('Birth Certificate')">Apply Now</button></div>
-<div class="card"><span>⚰️</span><b>Death Certificate</b><button onclick="openForm('Death Certificate')">Apply Now</button></div>
-<div class="card"><span>💰</span><b>Income Certificate</b><button onclick="openForm('Income Certificate')">Apply Now</button></div>
-<div class="card"><span>🏠</span><b>Residential</b><button onclick="openForm('Residential Certificate')">Apply Now</button></div>
-<div class="card"><span>👥</span><b>Caste SC/ST/OBC</b><button onclick="openForm('Caste Certificate')">Apply Now</button></div>
-<div class="card"><span>♿</span><b>Disability</b><button onclick="openForm('Disability Certificate')">Apply Now</button></div>
+
+<h4>Pending Wallet Recharge Requests (Money came to your Axis Account)</h4>
+<table><thead><tr><th>Retailer</th><th>Amount</th><th>UTR</th><th>Action</th></tr></thead><tbody id="adminRechargeTable"></tbody></table>
+
+<h4 style="margin-top:20px">All Retailer Applications</h4>
+<table><thead><tr><th>Retailer</th><th>Service</th><th>Customer</th><th>Mobile</th><th>Price</th><th>UTR-Wallet</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminAppTable"></tbody></table>
+
+<h4 style="margin-top:20px">All Retailers</h4>
+<table><thead><tr><th>Shop</th><th>Username</th><th>Mobile</th><th>Wallet</th></tr></thead><tbody id="adminRetTable"></tbody></table>
 </div>
-<div class="cat">🪪 ID & CARD - 10</div><div class="grid">
-<div class="card"><span>🆔</span><b>Aadhaar Card</b><button onclick="openForm('Aadhaar Card')">Apply Now</button></div>
-<div class="card"><span>💳</span><b>Pan Card</b><button onclick="openForm('Pan Card')">Apply Now</button></div>
-<div class="card"><span>🗳️</span><b>Voter Card</b><button onclick="openForm('Voter Card')">Apply Now</button></div>
-<div class="card"><span>🍚</span><b>Ration E-KYC</b><button onclick="openForm('Ration Card E-KYC')">Apply Now</button></div>
-<div class="card"><span>👷</span><b>E-Shram Card</b><button onclick="openForm('E-Shram Card')">Apply Now</button></div>
-<div class="card"><span>🏥</span><b>Ayushman Bharat</b><button onclick="openForm('Ayushman Bharat')">Apply Now</button></div>
-<div class="card"><span>🛂</span><b>Passport</b><button onclick="openForm('Passport')">Apply Now</button></div>
-<div class="card"><span>🚗</span><b>Driving Licence</b><button onclick="openForm('Driving Licence')">Apply Now</button></div>
-<div class="card"><span>🚜</span><b>Vehicle RC</b><button onclick="openForm('Vehicle RC')">Apply Now</button></div>
-<div class="card"><span>🔖</span><b>Labour Card</b><button onclick="openForm('Labour Card')">Apply Now</button></div>
-</div>
-<div class="cat">🎓 SCHOLARSHIP & YOJANA - 10</div><div class="grid">
-<div class="card"><span>🎓</span><b>Oasis</b><button onclick="openForm('Oasis Scholarship')">Apply Now</button></div>
-<div class="card"><span>📚</span><b>SVMCM</b><button onclick="openForm('SVMCM')">Apply Now</button></div>
-<div class="card"><span>💸</span><b>Lakshmir Bhandar</b><button onclick="openForm('Lakshmir Bhandar')">Apply Now</button></div>
-<div class="card"><span>👧</span><b>Kanyashree</b><button onclick="openForm('Kanyashree')">Apply Now</button></div>
-<div class="card"><span>🌾</span><b>PM Kisan</b><button onclick="openForm('PM Kisan')">Apply Now</button></div>
-<div class="card"><span>🧑‍💼</span><b>Yuvashree</b><button onclick="openForm('Yuvashree')">Apply Now</button></div>
-<div class="card"><span>🤰</span><b>Rupashree</b><button onclick="openForm('Rupashree')">Apply Now</button></div>
-<div class="card"><span>👩‍🎓</span><b>Aikyashree</b><button onclick="openForm('Aikyashree')">Apply Now</button></div>
-<div class="card"><span>🏠</span><b>PM Awas</b><button onclick="openForm('PM Awas Yojana')">Apply Now</button></div>
-<div class="card"><span>👶</span><b>Pension</b><button onclick="openForm('Pension Yojana')">Apply Now</button></div>
-</div>
-<div class="cat">💼 BUSINESS - 10</div><div class="grid">
-<div class="card"><span>🏢</span><b>MSME Udyam</b><button onclick="openForm('MSME Udyam')">Apply Now</button></div>
-<div class="card"><span>🧾</span><b>GST ITR</b><button onclick="openForm('GST ITR')">Apply Now</button></div>
-<div class="card"><span>🗺️</span><b>Banglarbhumi</b><button onclick="openForm('Banglarbhumi')">Apply Now</button></div>
-<div class="card"><span>🏪</span><b>Trade License</b><button onclick="openForm('Trade License')">Apply Now</button></div>
-<div class="card"><span>🍽️</span><b>FSSAI</b><button onclick="openForm('FSSAI License')">Apply Now</button></div>
-<div class="card"><span>📝</span><b>All Form Fillup</b><button onclick="openForm('All Form Fillup')">Apply Now</button></div>
-<div class="card"><span>⚡</span><b>Bill Payment</b><button onclick="openForm('Bill Payment')">Apply Now</button></div>
-<div class="card"><span>🖨️</span><b>Print Xerox</b><button onclick="openForm('Printing Service')">Apply Now</button></div>
-<div class="card"><span>📄</span><b>Resume</b><button onclick="openForm('Resume Making')">Apply Now</button></div>
-<div class="card"><span>📞</span><b>Help</b><button onclick="openForm('Help')">Apply Now</button></div>
-</div><br><br></div></div>
-<div id="M" class="modal"><div class="modalBox">
-<h3 id="formTitle" style="text-align:center;color:#0a1931">Apply Form</h3>
-<input id="f_name" placeholder="Full Name *"><input id="f_mobile" placeholder="Mobile Number *"><input id="f_aadhaar" placeholder="Aadhaar Number"><input id="f_dob" type="date"><textarea id="f_address" placeholder="Full Address" rows="2"></textarea><input id="f_doc" placeholder="Note"><select id="f_type"><option>New Apply</option><option>Correction</option><option>Update</option></select>
-<button onclick="goToPayment()" style="background:#ffcc00;color:#000;margin-top:10px">Next - Go to Payment 💰</button>
-<button onclick="closeForm()" style="background:#eee;color:#000;margin-top:8px">Cancel</button>
-</div></div>
-<div id="PayModal" class="modal"><div class="modalBox" style="text-align:center">
-<h3 style="color:#0a1931">💰 Payment Mandatory!</h3><p style="font-size:12px;margin:8px 0">Service: <b id="payService"></b><br>Amount: <b style="color:green">Rs.100</b></p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=6289361870-10@axl%26pn=Ashik%20Cyber%20Cafe%26cu=INR" style="width:220px;margin:10px auto;border:2px solid #000;border-radius:10px;display:block">
-<p style="font-size:12px;font-weight:bold">UPI: 6289361870-10@axl<br>Axis Bank - 2248</p>
-<a href="upi://pay?pa=6289361870-10@axl&pn=Ashik%20Cyber%20Cafe&cu=INR" style="background:#25D366;color:#fff;padding:12px 20px;border-radius:25px;text-decoration:none;display:inline-block;margin:10px 0;font-weight:bold">💸 Pay Now via UPI</a>
-<hr style="margin:12px 0"><p style="font-size:12px;text-align:left;font-weight:bold">UTR / Transaction ID (Mandatory):</p><input id="utr" placeholder="UTR / Transaction ID *"><input id="payAmount" placeholder="Koto taka? Eg: 100"><p style="font-size:10px;color:red;text-align:left">* UTR na dile Apply hobe na!</p><button onclick="finalSubmit()" style="background:green;margin-top:10px">Payment Korechi - Final Submit ✅</button><button onclick="closePay()" style="background:#eee;color:#000;margin-top:8px">Back</button>
-</div></div>
+
 <script>
-let currentService="", currentUser="", isAdminView=true, tempData={};
-function showReg(){loginForm.style.display='none';regForm.style.display='block';t1.classList.remove('active');t2.classList.add('active')}
-function showLogin(){regForm.style.display='none';loginForm.style.display='block';t2.classList.remove('active');t1.classList.add('active')}
-function doReg(){let n=rn.value,m=rp.value,u=ru.value,p=rpass.value;if(!n||!m||!u||!p){alert('Sob fill koro!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('OK Login: '+u);showLogin();}
-function doLogin(){let u1=document.getElementById('u').value,p1=document.getElementById('p').value;currentUser=u1;if(u1=='ashik'&&p1=='1234'){openDash('ASHIK ADMIN',true)}else{let d=localStorage.getItem('cyber_'+u1);if(d){let j=JSON.parse(d);if(j.pass==p1){openDash(j.name,false);return}}alert('Wrong Login!')}}
-function openDash(name,admin){L.style.display='none';D.style.display='block';welcome.innerText='Welcome '+name+' ✅';isAdminView=admin;if(admin){adminPanel.style.display='block';serviceArea.style.display='none';viewBtn.innerText='Services Dekho';}else{adminPanel.style.display='none';serviceArea.style.display='block';viewBtn.innerText='My Applications';}renderAdmin()}
-function toggleView(){isAdminView=!isAdminView;if(isAdminView){adminPanel.style.display='block';serviceArea.style.display='none';viewBtn.innerText='Services Dekho';}else{adminPanel.style.display='none';serviceArea.style.display='block';viewBtn.innerText='ADMIN DASHBOARD';}renderAdmin()}
-function renderAdmin(){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');let pending=apps.filter(a=>a.status=='Pending').length,working=apps.filter(a=>a.status=='Working').length,done=apps.filter(a=>a.status=='Completed').length,paid=apps.filter(a=>a.paymentStatus=='Paid').length;document.getElementById('cPending').innerText=pending;document.getElementById('cWorking').innerText=working;document.getElementById('cDone').innerText=done;document.getElementById('cTotal').innerText=apps.length;document.getElementById('cPaid').innerText=paid;let html='';let list=currentUser=='ashik'?apps:apps.filter(a=>a.user==currentUser);if(list.length==0){html='<p style="color:#888;margin-top:10px">Kono application nei</p>'}else{list.slice().reverse().forEach((a)=>{let actualIndex=apps.indexOf(a);html+='<div class="appItem" style="border-left-color:'+(a.status=='Completed'?'green':a.status=='Working'?'blue':'orange')+'"><span class="status '+(a.status=='Completed'?'done':a.status=='Working'?'working':'pending')+'">'+a.status+'</span> <span class="status paid">'+a.paymentStatus+' - Rs.'+(a.amount||100)+'</span> <b> '+a.service+' ('+a.type+')</b> - '+a.name+'<br>📱 '+a.mobile+' | 🪪 '+(a.aadhaar||'N/A')+'<br>🏠 '+(a.address||'')+'<br>📝 '+(a.note||'')+'<br>💳 UTR: <b style="color:green">'+(a.utr||'N/A')+'</b> | ⏰ '+a.time+'<br>'+(currentUser=='ashik'?'<div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><button onclick="updateStatus('+actualIndex+',\'Working\')" style="width:auto;padding:5px 10px;background:blue;font-size:10px">Working</button><button onclick="updateStatus('+actualIndex+',\'Completed\')" style="width:auto;padding:5px 10px;background:green;font-size:10px">Completed</button><a href="tel:'+a.mobile+'" style="background:#25D366;color:#fff;padding:5px 10px;border-radius:10px;text-decoration:none;font-size:10px">Call</a><button onclick="deleteOne('+actualIndex+')" style="width:auto;padding:5px 10px;background:red;font-size:10px">Delete</button></div>':'')+'</div>';});}document.getElementById('adminList').innerHTML=html;}
-function updateStatus(i,s){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps[i].status=s;localStorage.setItem('all_applications',JSON.stringify(apps));renderAdmin();}
-function deleteOne(i){if(confirm('Delete?')){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps.splice(i,1);localStorage.setItem('all_applications',JSON.stringify(apps));renderAdmin();}}
-function openForm(service){currentService=service;formTitle.innerText=service+' - Apply Form';M.style.display='flex'}
-function closeForm(){M.style.display='none'}
-function goToPayment(){let name=f_name.value,mob=f_mobile.value;if(!name||!mob){alert('Name & Mobile lagbe!');return}tempData={name:name,mobile:mob,aadhaar:f_aadhaar.value,dob:f_dob.value,address:f_address.value,note:f_doc.value,type:f_type.value};document.getElementById('payService').innerText=currentService+' - '+name;M.style.display='none';PayModal.style.display='flex';}
-function closePay(){PayModal.style.display='none';M.style.display='flex';}
-function finalSubmit(){let utr=document.getElementById('utr').value,amt=document.getElementById('payAmount').value;if(!utr||utr.length<6){alert('UTR dao! Paisa na dile Apply hobe na!');return}if(!amt){alert('Amount dao!');return}let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps.push({user:currentUser,service:currentService,type:tempData.type,name:tempData.name,mobile:tempData.mobile,aadhaar:tempData.aadhaar,dob:tempData.dob,address:tempData.address,note:tempData.note,time:new Date().toLocaleString(),status:'Pending',paymentStatus:'Paid',utr:utr,amount:amt});localStorage.setItem('all_applications',JSON.stringify(apps));PayModal.style.display='none';alert('✅ Payment Verified! Application Submit!');renderAdmin();location.reload();}
-</script></body></html>
+const SERVICES=[
+{name:"Aadhaar Card (New/Correction)",price:180},
+{name:"Birth Certificate",price:100},
+{name:"Death Certificate",price:100},
+{name:"Income Certificate",price:100},
+{name:"Caste Certificate",price:100},
+{name:"Residential Certificate",price:100},
+{name:"OBC Certificate",price:100},
+{name:"EWS Certificate",price:100},
+{name:"PAN Card",price:150},
+{name:"Voter Card",price:100},
+{name:"MSME Certificate",price:100},
+{name:"GST Registration",price:300},
+{name:"Trade License",price:200},
+{name:"Lakshmir Bhandar",price:50},
+{name:"Swasthya Sathi",price:50},
+{name:"Oasis Scholarship",price:100},
+{name:"Kanyashree",price:50},
+{name:"Yuvashree",price:50},
+{name:"Rupashree",price:50},
+{name:"Krishak Bandhu",price:50}
+];
+function loadServices(){let s=document.getElementById("service");s.innerHTML="";SERVICES.forEach((v,i)=>{s.innerHTML+=`<option value="${i}">${v.name} - Rs ${v.price}</option>`});updatePrice()}
+function updatePrice(){let i=document.getElementById("service").value;document.getElementById("priceShow").innerText="Price: Rs "+SERVICES[i].price}
+function getData(k){return JSON.parse(localStorage.getItem(k)||"[]")}
+function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function getRets(){return getData("ashik_retailers")}
+function showReg(){loginCard.classList.add("hidden");regCard.classList.remove("hidden")}
+function showLogin(){regCard.classList.add("hidden");loginCard.classList.remove("hidden")}
+function doReg(){
+let shop=rShop.value,mobile=rMobile.value,user=rUser.value,pass=rPass.value;
+if(!shop||!mobile||!user||!pass){alert("Fill all");return}
+let rets=getRets();
+if(rets.find(x=>x.user==user)){alert("Username exists");return}
+rets.push({shop,mobile,user,pass,wallet:0});setData("ashik_retailers",rets);
+alert("Registered! Now Login");showLogin();
+}
+function doLogin(){
+let u=lUser.value,p=lPass.value;
+if(u=="ashik"&&p=="1234"){loginCard.classList.add("hidden");adminPanel.classList.remove("hidden");loadAdmin();return}
+let rets=getRets();let r=rets.find(x=>x.user==u&&x.pass==p);
+if(!r){loginMsg.innerText="Wrong login!";return}
+localStorage.setItem("ashik_current",u);
+loginCard.classList.add("hidden");retPanel.classList.remove("hidden");
+retName.innerText=r.shop+" ("+r.user+")";
+loadServices();loadRet();
+}
+function loadRet(){
+let cu=localStorage.getItem("ashik_current");let rets=getRets();let me=rets.find(x=>x.user==cu);
+walletBal.innerText=me.wallet;
+let apps=getData("ashik_apps").filter(a=>a.retUser==cu);
+retTable.innerHTML="";apps.forEach(a=>{retTable.innerHTML+=`<tr><td>${a.service}</td><td>${a.cName}</td><td>${a.price}</td><td>${a.status}</td></tr>`});
+let rechs=getData("ashik_recharges").filter(r=>r.retUser==cu);
+retRechargeTable.innerHTML="";rechs.forEach(r=>{retRechargeTable.innerHTML+=`<tr><td>${r.amount}</td><td>${r.utr}</td><td>${r.status}</td></tr>`});
+}
+function showRecharge(){rechargeBox.classList.remove("hidden");applyBox.classList.add("hidden")}
+function showApply(){applyBox.classList.remove("hidden");rechargeBox.classList.add("hidden")}
+function submitRecharge(){
+let utr=reUtr.value,amt=parseInt(reAmt.value),cu=localStorage.getItem("ashik_current");
+if(!utr||!amt){alert("Enter UTR and Amount");return}
+let rechs=getData("ashik_recharges");rechs.push({retUser:cu,amount:amt,utr,status:"Pending",time:Date.now()});setData("ashik_recharges",rechs);
+alert("Recharge Request Sent! Admin will add after checking Axis Bank 2248 account");reUtr.value="";reAmt.value="";loadRet();
+}
+function submitApply(){
+let si=service.value;let ser=SERVICES[si];let cu=localStorage.getItem("ashik_current");
+let rets=getRets();let me=rets.find(x=>x.user==cu);
+if(me.wallet<ser.price){alert("Wallet low! Recharge first. Balance: "+me.wallet+", Need: "+ser.price);return}
+let cNameVal=cName.value,cMob=cMobile.value,cAad=cAadhaar.value;
+if(!cNameVal||!cMob){alert("Fill Customer details");return}
+me.wallet-=ser.price;setData("ashik_retailers",rets);
+let apps=getData("ashik_apps");apps.push({retUser:cu,shop:me.shop,service:ser.name,price:ser.price,cName:cNameVal,cMobile:cMob,cAadhaar:cAad,status:"Pending",time:Date.now()});setData("ashik_apps",apps);
+applyMsg.innerText="Applied! Rs "+ser.price+" deducted. Wallet: "+me.wallet;loadRet();
+}
+function loadAdmin(){
+let rets=getRets();adminRetTable.innerHTML="";rets.forEach(r=>{adminRetTable.innerHTML+=`<tr><td>${r.shop}</td><td>${r.user}</td><td>${r.mobile}</td><td>${r.wallet}</td></tr>`});
+let rechs=getData("ashik_recharges");adminRechargeTable.innerHTML="";rechs.forEach((r,i)=>{if(r.status=="Pending")adminRechargeTable.innerHTML+=`<tr><td>${r.retUser}</td><td>${r.amount}</td><td>${r.utr}</td><td><button onclick="approveRe(${i})">Approve & Add Wallet</button></td></tr>`});
+let apps=getData("ashik_apps");adminAppTable.innerHTML="";apps.forEach((a,i)=>{adminAppTable.innerHTML+=`<tr><td>${a.retUser}</td><td>${a.service}</td><td>${a.cName}</td><td>${a.cMobile}</td><td>${a.price}</td><td>Wallet Paid</td><td>${a.status}</td><td><button onclick="markDone(${i})">Done</button></td></tr>`});
+}
+function approveRe(i){
+let rechs=getData("ashik_recharges");let r=rechs[i];let rets=getRets();let me=rets.find(x=>x.user==r.retUser);
+me.wallet+=r.amount;r.status="Approved";setData("ashik_retailers",rets);setData("ashik_recharges",rechs);loadAdmin();alert("Added Rs "+r.amount+" to "+r.retUser);
+}
+function markDone(i){let apps=getData("ashik_apps");apps[i].status="Completed";setData("ashik_apps",apps);loadAdmin()}
+function adminAddWallet(){
+let u=addRetUser.value,a=parseInt(addRetAmt.value);let rets=getRets();let me=rets.find(x=>x.user==u);
+if(!me){alert("Retailer not found");return}me.wallet+=a;setData("ashik_retailers",rets);loadAdmin();alert("Added!");
+}
+function logout(){localStorage.removeItem("ashik_current");location.reload()}
+loadServices();
+</script>
+</body>
+</html>
