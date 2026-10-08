@@ -101,17 +101,17 @@ if((u=='ashi2248'||u=='ashik2248')&&p=='Ashik@2026'){lg.style.display='none';ad.
 let f=users.find(x=>x.u==u&&x.p==p);if(!f)return alert('Wrong Username/Password');
 cur=f;un.innerText=f.u;wb.innerText='₹'+f.b;lg.style.display='none';mp.style.display='block';renderS();
 }
-function renderS(){let h='';SV.forEach(s=>{h+=`<div class="card"><div class="ig">${s.ic}</div><b>${s.n}</b><span class="pr">₹${s.p}</span> <span class="opr">₹${s.o}</span><button class="btn b1" onclick="openF('${s.n}',${s.p})">APPLY NOW</button></div>`});sg.innerHTML=h;}
+function renderS(){let h='';SV.forEach(s=>{h+=<div class="card"><div class="ig">${s.ic}</div><b>${s.n}</b><span class="pr">₹${s.p}</span><button onclick="openF('${s.n}',${s.p})">APPLY NOW</button></div>});h+=<hr><h3>📋 Amar Apply List - Status & Download</h3><div style="overflow:auto"><table border=1 style="width:100%;font-size:11px;border-collapse:collapse"><tr style="background:#222;color:#fff"><th>Service</th><th>Name</th><th>Aadhar</th><th>Status</th><th>Download</th></tr>;apps.filter(a=>a.ret==cur.u).reverse().forEach(a=>{let btn=a.status=='Approved'?<a href="${a.dl}" target=_blank><button style="background:green;color:white;padding:5px">Download Open ✅</button></a>:<button disabled>Pending ⏳</button>;h+=<tr><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td style="color:${a.status=='Approved'?'green':'red'}">${a.status}</td><td>${btn}</td></tr>});h+=</table></div>;document.getElementById('services').innerHTML=h;}
 async function openF(n,p){cs=n;cp=p;cip=await getIP();ft.innerText=n+' - Price ₹'+p;fi.value='IP: '+cip+' | Date: '+new Date().toLocaleString();fn.value='';fa.value='';fm.value='';fd.value='';fe.innerText='';md.style.display='flex';}
 function doApply(){
 let nm=fn.value.trim(),ad=fa.value.trim(),mo=fm.value.trim();
 if(!nm||ad.length!=12||mo.length!=10){fe.innerText='Name + 12 Digit Aadhar + 10 Digit Mobile sothik dao';return;}
 if(cur.b<cp){alert('❌ Wallet e taka nei! Ache ₹'+cur.b+' Lagbe ₹'+cp+' | Admin ke bolo Add korte');return;}
 cur.b-=cp;let i=users.findIndex(x=>x.u==cur.u);users[i].b=cur.b;wb.innerText='₹'+cur.b;
-apps.push({dt:new Date().toLocaleString(),ret:cur.u,svc:cs,name:nm,aadhar:ad,mob:mo,ip:cip,price:cp});
+apps.push({dt:new Date().toLocaleString(),ret:cur.u,svc:cs,name:nm,aadhar:ad,mob:mo,ip:cip,price:cp,status:'Pending',dl:''});
 save();md.style.display='none';alert('✅ SUCCESS! ₹'+cp+' Wallet theke kete geche! Apply Admin e chole geche');
 }
-function renderA(){let h='';[...apps].reverse().forEach(a=>{h+=`<tr><td>${a.dt}</td><td>${a.ret}</td><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td>${a.mob}</td><td>${a.ip}</td><td>₹${a.price}</td></tr>`});at.innerHTML=h||'<tr><td colspan=8 style="text-align:center">Kono Apply Ase Ni</td></tr>';}
+function renderA(){let h='';[...apps].reverse().forEach((a,i)=>{let ri=apps.length-1-i;let btn=a.status=='Pending'?<button onclick="let l=prompt('Download Link dao:');if(l){apps[${ri}].dl=l;apps[${ri}].status='Approved';save();renderA();}" style="background:blue;color:white;padding:5px">Kaj Complete - Approve</button>:<span style="color:green">Approved ✅</span>;h+=<tr><td>${a.dt}</td><td>${a.ret}</td><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td>${a.mob}</td><td>₹${a.price}</td><td style="color:${a.status=='Pending'?'red':'green'}">${a.status}</td><td>${btn}</td></tr>});document.getElementById('adminTable').innerHTML=h;}}
 function addW(){let u=au.value.trim(),a=parseInt(aa.value);if(!u||!a)return alert('Username + Amount dao');let f=users.find(x=>x.u==u);if(!f)return alert('Retailer pawa jay ni');f.b+=a;save();alert('✅ ₹'+a+' Add Hoye Geche '+u+' er Wallet e');renderA();}
 </script>
 </body>
