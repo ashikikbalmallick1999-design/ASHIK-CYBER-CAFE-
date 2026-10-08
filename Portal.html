@@ -1,23 +1,27 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASHIK CYBER CAFE</title>
+<title>ASHIK CYBER CAFE - ALL SERVICES</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#06162f;color:#fff;min-height:100vh}
 .login{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px}
 .box{background:#fff;color:#000;padding:25px;border-radius:18px;width:100%;max-width:380px}
-input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:10px}
+input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ccc;border-radius:10px}
 button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
 .tab{display:flex;gap:10px;margin-bottom:15px}.tab button{flex:1;background:#eee;color:#000}.tab button.active{background:#0a1931;color:#fff}
-.dash{display:none;max-width:900px;margin:0 auto;padding:15px}
-.head{background:#fff;color:#000;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center}
-.card a{display:block;background:#25D366;color:#fff;padding:6px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:bold;margin-top:5px}
-.cat{background:#ffcc00;color:#000;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;margin:15px 0 5px;display:inline-block}
+.dash{display:none;max-width:1100px;margin:0 auto;padding:15px}
+.head{background:#fff;color:#000;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:10px;z-index:10}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+.card b{display:block;font-size:12px;margin:4px 0;line-height:1.2}
+.card span{font-size:20px}
+.card button{background:#25D366;padding:6px;border-radius:20px;font-size:11px;margin-top:6px}
+.cat{background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin:20px 0 6px;display:inline-block}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:99;padding:15px}
+.modalBox{background:#fff;color:#000;padding:20px;border-radius:15px;width:100%;max-width:430px;max-height:90vh;overflow:auto}
 @media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
 </style>
 </head>
@@ -26,76 +30,107 @@ button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-rad
 <div id="L" class="login">
 <div class="box">
 <h2 style="text-align:center;color:#0a1931">ASHIK CYBER CAFE</h2>
-<p style="text-align:center;font-size:13px;margin:5px 0 15px">Login / Registration Koro</p>
+<p style="text-align:center;font-size:12px;margin:5px 0 12px">Login kore sob service Apply koro</p>
 <div class="tab"><button id="t1" class="active" onclick="showLogin()">LOGIN</button><button id="t2" onclick="showReg()">REGISTRATION</button></div>
-
-<div id="loginForm">
-<input id="u" placeholder="Username">
-<input id="p" type="password" placeholder="Password">
-<button onclick="doLogin()">LOGIN</button>
-<p style="text-align:center;font-size:11px;color:#888;margin-top:8px">Demo: ashik / 1234</p>
-</div>
-
-<div id="regForm" style="display:none">
-<input id="rn" placeholder="Full Name">
-<input id="rp" placeholder="Mobile Number">
-<input id="ru" placeholder="Create Username">
-<input id="rpass" type="password" placeholder="Create Password">
-<button onclick="doReg()" style="background:#25D366">REGISTER NOW</button>
-</div>
-
+<div id="loginForm"><input id="u" placeholder="Username"><input id="p" type="password" placeholder="Password"><button onclick="doLogin()">LOGIN</button><p style="text-align:center;font-size:11px;color:#888;margin-top:8px">Admin: ashik / 1234</p></div>
+<div id="regForm" style="display:none"><input id="rn" placeholder="Full Name"><input id="rp" placeholder="Mobile Number"><input id="ru" placeholder="Create Username"><input id="rpass" type="password" placeholder="Create Password"><button onclick="doReg()" style="background:#25D366">REGISTER NOW</button></div>
 </div>
 </div>
 
 <div id="D" class="dash">
-<div class="head"><b id="welcome">ASHIK CYBER CAFE ✅</b><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div>
+<div class="head"><b id="welcome">Welcome ✅</b><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div>
 
-<div class="cat">📋 CERTIFICATE</div>
+<div class="cat">📋 CERTIFICATE - 6</div>
 <div class="grid">
-<div class="card">📄<br>Birth/Death Cert.<br><a href="https://wa.me/919999999999?text=Birth">Order</a></div>
-<div class="card">💰<br>Income Cert.<br><a href="https://wa.me/919999999999?text=Income">Order</a></div>
-<div class="card">🏠<br>Residential<br><a href="https://wa.me/919999999999?text=Residential">Order</a></div>
-<div class="card">👥<br>Caste SC/ST/OBC<br><a href="https://wa.me/919999999999?text=Caste">Order</a></div>
+<div class="card"><span>📄</span><b>Birth Certificate</b><button onclick="openForm('Birth Certificate')">Apply Now</button></div>
+<div class="card"><span>⚰️</span><b>Death Certificate</b><button onclick="openForm('Death Certificate')">Apply Now</button></div>
+<div class="card"><span>💰</span><b>Income Certificate</b><button onclick="openForm('Income Certificate')">Apply Now</button></div>
+<div class="card"><span>🏠</span><b>Residential / Domicile</b><button onclick="openForm('Residential Certificate')">Apply Now</button></div>
+<div class="card"><span>👥</span><b>Caste SC/ST/OBC</b><button onclick="openForm('Caste Certificate')">Apply Now</button></div>
+<div class="card"><span>♿</span><b>Disability Certificate</b><button onclick="openForm('Disability Certificate')">Apply Now</button></div>
 </div>
 
-<div class="cat">🪪 ID & CARD</div>
+<div class="cat">🪪 ID & CARD - 10</div>
 <div class="grid">
-<div class="card">🆔<br>Aadhaar Service<br><a href="https://wa.me/919999999999?text=Aadhaar">Order</a></div>
-<div class="card">💳<br>Pan Card<br><a href="https://wa.me/919999999999?text=Pan">Order</a></div>
-<div class="card">🗳️<br>Voter Card<br><a href="https://wa.me/919999999999?text=Voter">Order</a></div>
-<div class="card">🍚<br>Ration E-KYC<br><a href="https://wa.me/919999999999?text=Ration">Order</a></div>
-<div class="card">👷<br>E-Shram Card<br><a href="https://wa.me/919999999999?text=Eshram">Order</a></div>
-<div class="card">🏥<br>Ayushman Bharat<br><a href="https://wa.me/919999999999?text=Ayushman">Order</a></div>
-<div class="card">🛂<br>Passport<br><a href="https://wa.me/919999999999?text=Passport">Order</a></div>
-<div class="card">🚗<br>Driving Licence<br><a href="https://wa.me/919999999999?text=DL">Order</a></div>
+<div class="card"><span>🆔</span><b>Aadhaar Card</b><button onclick="openForm('Aadhaar Card')">Apply Now</button></div>
+<div class="card"><span>💳</span><b>Pan Card</b><button onclick="openForm('Pan Card')">Apply Now</button></div>
+<div class="card"><span>🗳️</span><b>Voter Card</b><button onclick="openForm('Voter Card')">Apply Now</button></div>
+<div class="card"><span>🍚</span><b>Ration Card / E-KYC</b><button onclick="openForm('Ration Card E-KYC')">Apply Now</button></div>
+<div class="card"><span>👷</span><b>E-Shram Card</b><button onclick="openForm('E-Shram Card')">Apply Now</button></div>
+<div class="card"><span>🏥</span><b>Ayushman Bharat Card</b><button onclick="openForm('Ayushman Bharat')">Apply Now</button></div>
+<div class="card"><span>🛂</span><b>Passport Apply</b><button onclick="openForm('Passport')">Apply Now</button></div>
+<div class="card"><span>🚗</span><b>Driving Licence</b><button onclick="openForm('Driving Licence')">Apply Now</button></div>
+<div class="card"><span>🚜</span><b>Vehicle RC / Insurance</b><button onclick="openForm('Vehicle RC')">Apply Now</button></div>
+<div class="card"><span>🔖</span><b>Labour Card</b><button onclick="openForm('Labour Card')">Apply Now</button></div>
 </div>
 
-<div class="cat">🎓 SCHOLARSHIP & YOJANA</div>
+<div class="cat">🎓 SCHOLARSHIP & YOJANA - 10</div>
 <div class="grid">
-<div class="card">🎓<br>Oasis Scholarship<br><a href="https://wa.me/919999999999?text=Oasis">Order</a></div>
-<div class="card">📚<br>SVMCM<br><a href="https://wa.me/919999999999?text=SVMCM">Order</a></div>
-<div class="card">💸<br>Lakshmir Bhandar<br><a href="https://wa.me/919999999999?text=Lakshmir">Order</a></div>
-<div class="card">👧<br>Kanyashree<br><a href="https://wa.me/919999999999?text=Kanyashree">Order</a></div>
-<div class="card">🌾<br>PM Kisan<br><a href="https://wa.me/919999999999?text=PMKisan">Order</a></div>
-<div class="card">🧑‍💼<br>Yuvashree<br><a href="https://wa.me/919999999999?text=Yuvashree">Order</a></div>
+<div class="card"><span>🎓</span><b>Oasis Scholarship</b><button onclick="openForm('Oasis Scholarship')">Apply Now</button></div>
+<div class="card"><span>📚</span><b>SVMCM Scholarship</b><button onclick="openForm('SVMCM')">Apply Now</button></div>
+<div class="card"><span>💸</span><b>Lakshmir Bhandar</b><button onclick="openForm('Lakshmir Bhandar')">Apply Now</button></div>
+<div class="card"><span>👧</span><b>Kanyashree K3</b><button onclick="openForm('Kanyashree')">Apply Now</button></div>
+<div class="card"><span>🌾</span><b>PM Kisan Yojana</b><button onclick="openForm('PM Kisan')">Apply Now</button></div>
+<div class="card"><span>🧑‍💼</span><b>Yuvashree / Employment Bank</b><button onclick="openForm('Yuvashree')">Apply Now</button></div>
+<div class="card"><span>🤰</span><b>Rupashree Prakalpa</b><button onclick="openForm('Rupashree')">Apply Now</button></div>
+<div class="card"><span>👩‍🎓</span><b>Aikyashree Scholarship</b><button onclick="openForm('Aikyashree')">Apply Now</button></div>
+<div class="card"><span>🏠</span><b>PM Awas Yojana</b><button onclick="openForm('PM Awas Yojana')">Apply Now</button></div>
+<div class="card"><span>👶</span><b>Manobik / Old Age Pension</b><button onclick="openForm('Pension Yojana')">Apply Now</button></div>
 </div>
 
-<div class="cat">💼 BUSINESS & OTHER</div>
+<div class="cat">💼 BUSINESS & LICENSE - 6</div>
 <div class="grid">
-<div class="card">🏢<br>Udyam / MSME<br><a href="https://wa.me/919999999999?text=MSME">Order</a></div>
-<div class="card">🧾<br>GST / ITR<br><a href="https://wa.me/919999999999?text=GST">Order</a></div>
-<div class="card">🗺️<br>Banglarbhumi<br><a href="https://wa.me/919999999999?text=Land">Order</a></div>
-<div class="card">📝<br>All Form Fillup<br><a href="https://wa.me/919999999999?text=Form">Order</a></div>
+<div class="card"><span>🏢</span><b>Udyam / MSME Certificate</b><button onclick="openForm('MSME Udyam')">Apply Now</button></div>
+<div class="card"><span>🧾</span><b>GST Registration / ITR</b><button onclick="openForm('GST ITR')">Apply Now</button></div>
+<div class="card"><span>🗺️</span><b>Banglarbhumi / Land Record</b><button onclick="openForm('Banglarbhumi')">Apply Now</button></div>
+<div class="card"><span>🏪</span><b>Trade License</b><button onclick="openForm('Trade License')">Apply Now</button></div>
+<div class="card"><span>🍽️</span><b>Food License FSSAI</b><button onclick="openForm('FSSAI License')">Apply Now</button></div>
+<div class="card"><span>📝</span><b>All Form Fillup</b><button onclick="openForm('All Form Fillup')">Apply Now</button></div>
 </div>
 
+<div class="cat">💻 OTHER ONLINE SERVICE - 4</div>
+<div class="grid">
+<div class="card"><span>⚡</span><b>Electric Bill / Mobile Recharge</b><button onclick="openForm('Bill Payment')">Apply Now</button></div>
+<div class="card"><span>🖨️</span><b>Print / Xerox / Lamination</b><button onclick="openForm('Printing Service')">Apply Now</button></div>
+<div class="card"><span>📄</span><b>Resume / CV Making</b><button onclick="openForm('Resume Making')">Apply Now</button></div>
+<div class="card"><span>📞</span><b>Contact / Help</b><button onclick="openForm('Help')">Apply Now</button></div>
+</div>
+
+<br><br>
+</div>
+
+<div id="M" class="modal">
+<div class="modalBox">
+<h3 id="formTitle" style="text-align:center;color:#0a1931;margin-bottom:10px">Apply Form</h3>
+<input id="f_name" placeholder="Full Name *">
+<input id="f_mobile" placeholder="Mobile Number *">
+<input id="f_aadhaar" placeholder="Aadhaar Number">
+<input id="f_dob" type="date">
+<textarea id="f_address" placeholder="Full Address" rows="2"></textarea>
+<input id="f_doc" placeholder="Note / Extra Info">
+<select id="f_type"><option>New Apply</option><option>Correction</option><option>Update / Renewal</option></select>
+<button onclick="submitForm()" style="background:#25D366;margin-top:10px">SUBMIT TO ASHIK CYBER CAFE ✅</button>
+<button onclick="closeForm()" style="background:#eee;color:#000;margin-top:8px">Cancel</button>
+</div>
 </div>
 
 <script>
-function showReg(){document.getElementById('loginForm').style.display='none';document.getElementById('regForm').style.display='block';document.getElementById('t1').classList.remove('active');document.getElementById('t2').classList.add('active')}
-function showLogin(){document.getElementById('regForm').style.display='none';document.getElementById('loginForm').style.display='block';document.getElementById('t2').classList.remove('active');document.getElementById('t1').classList.add('active')}
-function doReg(){let n=document.getElementById('rn').value,m=document.getElementById('rp').value,u=document.getElementById('ru').value,p=document.getElementById('rpass').value;if(!n||!m||!u||!p){alert('Sob fill koro bhai!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('Registration Success! Ebar Login koro - User: '+u);showLogin();document.getElementById('u').value=u;}
-function doLogin(){let u=document.getElementById('u').value,p=document.getElementById('p').value;if(u=='ashik'&&p=='1234'){openDash('Ashik')}else{let d=localStorage.getItem('cyber_'+u);if(d){let j=JSON.parse(d);if(j.pass==p){openDash(j.name);return}}alert('Wrong Username/Password!')}}
-function openDash(name){document.getElementById('L').style.display='none';document.getElementById('D').style.display='block';document.getElementById('welcome').innerText='Welcome '+name+' ✅'}
+let currentService="";
+function showReg(){loginForm.style.display='none';regForm.style.display='block';t1.classList.remove('active');t2.classList.add('active')}
+function showLogin(){regForm.style.display='none';loginForm.style.display='block';t2.classList.remove('active');t1.classList.add('active')}
+function doReg(){let n=rn.value,m=rp.value,u=ru.value,p=rpass.value;if(!n||!m||!u||!p){alert('Sob fill koro!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('Registration OK! Ebar Login koro: '+u);showLogin();document.getElementById('u').value=u;}
+function doLogin(){let u1=document.getElementById('u').value,p1=document.getElementById('p').value;if(u1=='ashik'&&p1=='1234'){openDash('Ashik Ikbal Mallick (Admin)')}else{let d=localStorage.getItem('cyber_'+u1);if(d){let j=JSON.parse(d);if(j.pass==p1){openDash(j.name);return}}alert('Wrong Login!')}}
+function openDash(name){L.style.display='none';D.style.display='block';welcome.innerText='Welcome '+name+' ✅'}
+function openForm(service){currentService=service;formTitle.innerText=service+' - Apply Form';M.style.display='flex'}
+function closeForm(){M.style.display='none'}
+function submitForm(){
+let name=f_name.value, mob=f_mobile.value, aadhaar=f_aadhaar.value, dob=f_dob.value, addr=f_address.value, note=f_doc.value, type=f_type.value;
+if(!name||!mob){alert('Name & Mobile lagbe!');return}
+let msg=`*NEW APPLICATION - ASHIK CYBER CAFE*%0A%0A*Service:* ${currentService} (${type})%0A*Name:* ${name}%0A*Mobile:* ${mob}%0A*Aadhaar:* ${aadhaar}%0A*DOB:* ${dob}%0A*Address:* ${addr}%0A*Note:* ${note}%0A%0A_Portal theke pathano_`;
+window.open('https://wa.me/916289361870?text='+msg,'_blank');
+alert('Success! Tomar application 6289361870 number e chole geche!');
+closeForm();
+}
 </script>
 </body>
 </html>
