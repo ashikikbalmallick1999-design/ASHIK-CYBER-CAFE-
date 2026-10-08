@@ -1,9 +1,9 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASHIK CYBER CAFE - ALL SERVICES</title>
+<title>ASHIK CYBER CAFE - All Services + Payment</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#06162f;color:#fff;min-height:100vh}
@@ -15,122 +15,121 @@ button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-rad
 .dash{display:none;max-width:1100px;margin:0 auto;padding:15px}
 .head{background:#fff;color:#000;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:10px;z-index:10}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
-.card b{display:block;font-size:12px;margin:4px 0;line-height:1.2}
-.card span{font-size:20px}
+.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center}
+.card b{display:block;font-size:12px;margin:4px 0}
 .card button{background:#25D366;padding:6px;border-radius:20px;font-size:11px;margin-top:6px}
 .cat{background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin:20px 0 6px;display:inline-block}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:99;padding:15px}
-.modalBox{background:#fff;color:#000;padding:20px;border-radius:15px;width:100%;max-width:430px;max-height:90vh;overflow:auto}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:99;padding:15px}
+.modalBox{background:#fff;color:#000;padding:20px;border-radius:15px;width:100%;max-width:450px;max-height:95vh;overflow:auto}
+.listBox{background:#fff;color:#000;padding:15px;border-radius:12px;margin-top:15px}
+.appItem{border-left:5px solid #ffcc00;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;line-height:1.5;background:#f9f9f9}
+.status{padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold;color:#fff;display:inline-block}
+.pending{background:orange}.done{background:green}.working{background:blue}.paid{background:green}
 @media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
 </style>
 </head>
 <body>
-
 <div id="L" class="login">
 <div class="box">
 <h2 style="text-align:center;color:#0a1931">ASHIK CYBER CAFE</h2>
-<p style="text-align:center;font-size:12px;margin:5px 0 12px">Login kore sob service Apply koro</p>
+<p style="text-align:center;font-size:12px;margin:5px 0 12px">All Services - Payment Mandatory</p>
 <div class="tab"><button id="t1" class="active" onclick="showLogin()">LOGIN</button><button id="t2" onclick="showReg()">REGISTRATION</button></div>
 <div id="loginForm"><input id="u" placeholder="Username"><input id="p" type="password" placeholder="Password"><button onclick="doLogin()">LOGIN</button><p style="text-align:center;font-size:11px;color:#888;margin-top:8px">Admin: ashik / 1234</p></div>
-<div id="regForm" style="display:none"><input id="rn" placeholder="Full Name"><input id="rp" placeholder="Mobile Number"><input id="ru" placeholder="Create Username"><input id="rpass" type="password" placeholder="Create Password"><button onclick="doReg()" style="background:#25D366">REGISTER NOW</button></div>
+<div id="regForm" style="display:none"><input id="rn" placeholder="Full Name"><input id="rp" placeholder="Mobile"><input id="ru" placeholder="Create Username"><input id="rpass" type="password" placeholder="Create Password"><button onclick="doReg()" style="background:#25D366">REGISTER NOW</button></div>
 </div>
 </div>
-
 <div id="D" class="dash">
-<div class="head"><b id="welcome">Welcome ✅</b><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div>
-
-<div class="cat">📋 CERTIFICATE - 6</div>
-<div class="grid">
+<div class="head"><b id="welcome">Welcome</b><div><button onclick="toggleView()" id="viewBtn" style="width:auto;padding:6px 12px;background:#ffcc00;color:#000;margin-right:5px">ADMIN DASHBOARD</button><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div></div>
+<div id="adminPanel">
+<div class="listBox"><h3>👑 ADMIN - Sob Application + Payment</h3>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<div style="background:orange;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Pending: <b id="cPending">0</b></div>
+<div style="background:blue;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Working: <b id="cWorking">0</b></div>
+<div style="background:green;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Done: <b id="cDone">0</b></div>
+<div style="background:#0a1931;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Total: <b id="cTotal">0</b></div>
+<div style="background:green;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px">Paid: <b id="cPaid">0</b></div>
+</div><div id="adminList" style="max-height:600px;overflow:auto;margin-top:12px"></div>
+<button onclick="if(confirm('Clear all?')){localStorage.removeItem('all_applications');renderAdmin()}" style="background:red;margin-top:10px">Clear All</button>
+</div>
+<div class="listBox" style="border:2px solid #0a1931;text-align:center">
+<h3>💰 Payment QR - Axis Bank 2248</h3><p>UPI ID: 6289361870-10@axl</p>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=6289361870-10@axl%26pn=Ashik%20Cyber%20Cafe%26cu=INR" style="width:250px;margin:10px auto;border:2px solid #000;border-radius:12px;display:block">
+<p style="font-size:11px">PhonePe • GPay • Paytm • Any UPI</p>
+<a href="upi://pay?pa=6289361870-10@axl&pn=Ashik%20Cyber%20Cafe&cu=INR" style="background:#25D366;color:#fff;padding:10px 20px;border-radius:25px;text-decoration:none;display:inline-block;margin-top:10px;font-weight:bold">💸 Pay Now</a>
+</div>
+</div>
+<div id="serviceArea" style="display:none">
+<div class="cat">📋 CERTIFICATE - 6</div><div class="grid">
 <div class="card"><span>📄</span><b>Birth Certificate</b><button onclick="openForm('Birth Certificate')">Apply Now</button></div>
 <div class="card"><span>⚰️</span><b>Death Certificate</b><button onclick="openForm('Death Certificate')">Apply Now</button></div>
 <div class="card"><span>💰</span><b>Income Certificate</b><button onclick="openForm('Income Certificate')">Apply Now</button></div>
-<div class="card"><span>🏠</span><b>Residential / Domicile</b><button onclick="openForm('Residential Certificate')">Apply Now</button></div>
+<div class="card"><span>🏠</span><b>Residential</b><button onclick="openForm('Residential Certificate')">Apply Now</button></div>
 <div class="card"><span>👥</span><b>Caste SC/ST/OBC</b><button onclick="openForm('Caste Certificate')">Apply Now</button></div>
-<div class="card"><span>♿</span><b>Disability Certificate</b><button onclick="openForm('Disability Certificate')">Apply Now</button></div>
+<div class="card"><span>♿</span><b>Disability</b><button onclick="openForm('Disability Certificate')">Apply Now</button></div>
 </div>
-
-<div class="cat">🪪 ID & CARD - 10</div>
-<div class="grid">
+<div class="cat">🪪 ID & CARD - 10</div><div class="grid">
 <div class="card"><span>🆔</span><b>Aadhaar Card</b><button onclick="openForm('Aadhaar Card')">Apply Now</button></div>
 <div class="card"><span>💳</span><b>Pan Card</b><button onclick="openForm('Pan Card')">Apply Now</button></div>
 <div class="card"><span>🗳️</span><b>Voter Card</b><button onclick="openForm('Voter Card')">Apply Now</button></div>
-<div class="card"><span>🍚</span><b>Ration Card / E-KYC</b><button onclick="openForm('Ration Card E-KYC')">Apply Now</button></div>
+<div class="card"><span>🍚</span><b>Ration E-KYC</b><button onclick="openForm('Ration Card E-KYC')">Apply Now</button></div>
 <div class="card"><span>👷</span><b>E-Shram Card</b><button onclick="openForm('E-Shram Card')">Apply Now</button></div>
-<div class="card"><span>🏥</span><b>Ayushman Bharat Card</b><button onclick="openForm('Ayushman Bharat')">Apply Now</button></div>
-<div class="card"><span>🛂</span><b>Passport Apply</b><button onclick="openForm('Passport')">Apply Now</button></div>
+<div class="card"><span>🏥</span><b>Ayushman Bharat</b><button onclick="openForm('Ayushman Bharat')">Apply Now</button></div>
+<div class="card"><span>🛂</span><b>Passport</b><button onclick="openForm('Passport')">Apply Now</button></div>
 <div class="card"><span>🚗</span><b>Driving Licence</b><button onclick="openForm('Driving Licence')">Apply Now</button></div>
-<div class="card"><span>🚜</span><b>Vehicle RC / Insurance</b><button onclick="openForm('Vehicle RC')">Apply Now</button></div>
+<div class="card"><span>🚜</span><b>Vehicle RC</b><button onclick="openForm('Vehicle RC')">Apply Now</button></div>
 <div class="card"><span>🔖</span><b>Labour Card</b><button onclick="openForm('Labour Card')">Apply Now</button></div>
 </div>
-
-<div class="cat">🎓 SCHOLARSHIP & YOJANA - 10</div>
-<div class="grid">
-<div class="card"><span>🎓</span><b>Oasis Scholarship</b><button onclick="openForm('Oasis Scholarship')">Apply Now</button></div>
-<div class="card"><span>📚</span><b>SVMCM Scholarship</b><button onclick="openForm('SVMCM')">Apply Now</button></div>
+<div class="cat">🎓 SCHOLARSHIP & YOJANA - 10</div><div class="grid">
+<div class="card"><span>🎓</span><b>Oasis</b><button onclick="openForm('Oasis Scholarship')">Apply Now</button></div>
+<div class="card"><span>📚</span><b>SVMCM</b><button onclick="openForm('SVMCM')">Apply Now</button></div>
 <div class="card"><span>💸</span><b>Lakshmir Bhandar</b><button onclick="openForm('Lakshmir Bhandar')">Apply Now</button></div>
-<div class="card"><span>👧</span><b>Kanyashree K3</b><button onclick="openForm('Kanyashree')">Apply Now</button></div>
-<div class="card"><span>🌾</span><b>PM Kisan Yojana</b><button onclick="openForm('PM Kisan')">Apply Now</button></div>
-<div class="card"><span>🧑‍💼</span><b>Yuvashree / Employment Bank</b><button onclick="openForm('Yuvashree')">Apply Now</button></div>
-<div class="card"><span>🤰</span><b>Rupashree Prakalpa</b><button onclick="openForm('Rupashree')">Apply Now</button></div>
-<div class="card"><span>👩‍🎓</span><b>Aikyashree Scholarship</b><button onclick="openForm('Aikyashree')">Apply Now</button></div>
-<div class="card"><span>🏠</span><b>PM Awas Yojana</b><button onclick="openForm('PM Awas Yojana')">Apply Now</button></div>
-<div class="card"><span>👶</span><b>Manobik / Old Age Pension</b><button onclick="openForm('Pension Yojana')">Apply Now</button></div>
+<div class="card"><span>👧</span><b>Kanyashree</b><button onclick="openForm('Kanyashree')">Apply Now</button></div>
+<div class="card"><span>🌾</span><b>PM Kisan</b><button onclick="openForm('PM Kisan')">Apply Now</button></div>
+<div class="card"><span>🧑‍💼</span><b>Yuvashree</b><button onclick="openForm('Yuvashree')">Apply Now</button></div>
+<div class="card"><span>🤰</span><b>Rupashree</b><button onclick="openForm('Rupashree')">Apply Now</button></div>
+<div class="card"><span>👩‍🎓</span><b>Aikyashree</b><button onclick="openForm('Aikyashree')">Apply Now</button></div>
+<div class="card"><span>🏠</span><b>PM Awas</b><button onclick="openForm('PM Awas Yojana')">Apply Now</button></div>
+<div class="card"><span>👶</span><b>Pension</b><button onclick="openForm('Pension Yojana')">Apply Now</button></div>
 </div>
-
-<div class="cat">💼 BUSINESS & LICENSE - 6</div>
-<div class="grid">
-<div class="card"><span>🏢</span><b>Udyam / MSME Certificate</b><button onclick="openForm('MSME Udyam')">Apply Now</button></div>
-<div class="card"><span>🧾</span><b>GST Registration / ITR</b><button onclick="openForm('GST ITR')">Apply Now</button></div>
-<div class="card"><span>🗺️</span><b>Banglarbhumi / Land Record</b><button onclick="openForm('Banglarbhumi')">Apply Now</button></div>
+<div class="cat">💼 BUSINESS - 10</div><div class="grid">
+<div class="card"><span>🏢</span><b>MSME Udyam</b><button onclick="openForm('MSME Udyam')">Apply Now</button></div>
+<div class="card"><span>🧾</span><b>GST ITR</b><button onclick="openForm('GST ITR')">Apply Now</button></div>
+<div class="card"><span>🗺️</span><b>Banglarbhumi</b><button onclick="openForm('Banglarbhumi')">Apply Now</button></div>
 <div class="card"><span>🏪</span><b>Trade License</b><button onclick="openForm('Trade License')">Apply Now</button></div>
-<div class="card"><span>🍽️</span><b>Food License FSSAI</b><button onclick="openForm('FSSAI License')">Apply Now</button></div>
+<div class="card"><span>🍽️</span><b>FSSAI</b><button onclick="openForm('FSSAI License')">Apply Now</button></div>
 <div class="card"><span>📝</span><b>All Form Fillup</b><button onclick="openForm('All Form Fillup')">Apply Now</button></div>
-</div>
-
-<div class="cat">💻 OTHER ONLINE SERVICE - 4</div>
-<div class="grid">
-<div class="card"><span>⚡</span><b>Electric Bill / Mobile Recharge</b><button onclick="openForm('Bill Payment')">Apply Now</button></div>
-<div class="card"><span>🖨️</span><b>Print / Xerox / Lamination</b><button onclick="openForm('Printing Service')">Apply Now</button></div>
-<div class="card"><span>📄</span><b>Resume / CV Making</b><button onclick="openForm('Resume Making')">Apply Now</button></div>
-<div class="card"><span>📞</span><b>Contact / Help</b><button onclick="openForm('Help')">Apply Now</button></div>
-</div>
-
-<br><br>
-</div>
-
-<div id="M" class="modal">
-<div class="modalBox">
-<h3 id="formTitle" style="text-align:center;color:#0a1931;margin-bottom:10px">Apply Form</h3>
-<input id="f_name" placeholder="Full Name *">
-<input id="f_mobile" placeholder="Mobile Number *">
-<input id="f_aadhaar" placeholder="Aadhaar Number">
-<input id="f_dob" type="date">
-<textarea id="f_address" placeholder="Full Address" rows="2"></textarea>
-<input id="f_doc" placeholder="Note / Extra Info">
-<select id="f_type"><option>New Apply</option><option>Correction</option><option>Update / Renewal</option></select>
-<button onclick="submitForm()" style="background:#25D366;margin-top:10px">SUBMIT TO ASHIK CYBER CAFE ✅</button>
+<div class="card"><span>⚡</span><b>Bill Payment</b><button onclick="openForm('Bill Payment')">Apply Now</button></div>
+<div class="card"><span>🖨️</span><b>Print Xerox</b><button onclick="openForm('Printing Service')">Apply Now</button></div>
+<div class="card"><span>📄</span><b>Resume</b><button onclick="openForm('Resume Making')">Apply Now</button></div>
+<div class="card"><span>📞</span><b>Help</b><button onclick="openForm('Help')">Apply Now</button></div>
+</div><br><br></div></div>
+<div id="M" class="modal"><div class="modalBox">
+<h3 id="formTitle" style="text-align:center;color:#0a1931">Apply Form</h3>
+<input id="f_name" placeholder="Full Name *"><input id="f_mobile" placeholder="Mobile Number *"><input id="f_aadhaar" placeholder="Aadhaar Number"><input id="f_dob" type="date"><textarea id="f_address" placeholder="Full Address" rows="2"></textarea><input id="f_doc" placeholder="Note"><select id="f_type"><option>New Apply</option><option>Correction</option><option>Update</option></select>
+<button onclick="goToPayment()" style="background:#ffcc00;color:#000;margin-top:10px">Next - Go to Payment 💰</button>
 <button onclick="closeForm()" style="background:#eee;color:#000;margin-top:8px">Cancel</button>
-</div>
-</div>
-
+</div></div>
+<div id="PayModal" class="modal"><div class="modalBox" style="text-align:center">
+<h3 style="color:#0a1931">💰 Payment Mandatory!</h3><p style="font-size:12px;margin:8px 0">Service: <b id="payService"></b><br>Amount: <b style="color:green">Rs.100</b></p>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=6289361870-10@axl%26pn=Ashik%20Cyber%20Cafe%26cu=INR" style="width:220px;margin:10px auto;border:2px solid #000;border-radius:10px;display:block">
+<p style="font-size:12px;font-weight:bold">UPI: 6289361870-10@axl<br>Axis Bank - 2248</p>
+<a href="upi://pay?pa=6289361870-10@axl&pn=Ashik%20Cyber%20Cafe&cu=INR" style="background:#25D366;color:#fff;padding:12px 20px;border-radius:25px;text-decoration:none;display:inline-block;margin:10px 0;font-weight:bold">💸 Pay Now via UPI</a>
+<hr style="margin:12px 0"><p style="font-size:12px;text-align:left;font-weight:bold">UTR / Transaction ID (Mandatory):</p><input id="utr" placeholder="UTR / Transaction ID *"><input id="payAmount" placeholder="Koto taka? Eg: 100"><p style="font-size:10px;color:red;text-align:left">* UTR na dile Apply hobe na!</p><button onclick="finalSubmit()" style="background:green;margin-top:10px">Payment Korechi - Final Submit ✅</button><button onclick="closePay()" style="background:#eee;color:#000;margin-top:8px">Back</button>
+</div></div>
 <script>
-let currentService="";
+let currentService="", currentUser="", isAdminView=true, tempData={};
 function showReg(){loginForm.style.display='none';regForm.style.display='block';t1.classList.remove('active');t2.classList.add('active')}
 function showLogin(){regForm.style.display='none';loginForm.style.display='block';t2.classList.remove('active');t1.classList.add('active')}
-function doReg(){let n=rn.value,m=rp.value,u=ru.value,p=rpass.value;if(!n||!m||!u||!p){alert('Sob fill koro!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('Registration OK! Ebar Login koro: '+u);showLogin();document.getElementById('u').value=u;}
-function doLogin(){let u1=document.getElementById('u').value,p1=document.getElementById('p').value;if(u1=='ashik'&&p1=='1234'){openDash('Ashik Ikbal Mallick (Admin)')}else{let d=localStorage.getItem('cyber_'+u1);if(d){let j=JSON.parse(d);if(j.pass==p1){openDash(j.name);return}}alert('Wrong Login!')}}
-function openDash(name){L.style.display='none';D.style.display='block';welcome.innerText='Welcome '+name+' ✅'}
+function doReg(){let n=rn.value,m=rp.value,u=ru.value,p=rpass.value;if(!n||!m||!u||!p){alert('Sob fill koro!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('OK Login: '+u);showLogin();}
+function doLogin(){let u1=document.getElementById('u').value,p1=document.getElementById('p').value;currentUser=u1;if(u1=='ashik'&&p1=='1234'){openDash('ASHIK ADMIN',true)}else{let d=localStorage.getItem('cyber_'+u1);if(d){let j=JSON.parse(d);if(j.pass==p1){openDash(j.name,false);return}}alert('Wrong Login!')}}
+function openDash(name,admin){L.style.display='none';D.style.display='block';welcome.innerText='Welcome '+name+' ✅';isAdminView=admin;if(admin){adminPanel.style.display='block';serviceArea.style.display='none';viewBtn.innerText='Services Dekho';}else{adminPanel.style.display='none';serviceArea.style.display='block';viewBtn.innerText='My Applications';}renderAdmin()}
+function toggleView(){isAdminView=!isAdminView;if(isAdminView){adminPanel.style.display='block';serviceArea.style.display='none';viewBtn.innerText='Services Dekho';}else{adminPanel.style.display='none';serviceArea.style.display='block';viewBtn.innerText='ADMIN DASHBOARD';}renderAdmin()}
+function renderAdmin(){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');let pending=apps.filter(a=>a.status=='Pending').length,working=apps.filter(a=>a.status=='Working').length,done=apps.filter(a=>a.status=='Completed').length,paid=apps.filter(a=>a.paymentStatus=='Paid').length;document.getElementById('cPending').innerText=pending;document.getElementById('cWorking').innerText=working;document.getElementById('cDone').innerText=done;document.getElementById('cTotal').innerText=apps.length;document.getElementById('cPaid').innerText=paid;let html='';let list=currentUser=='ashik'?apps:apps.filter(a=>a.user==currentUser);if(list.length==0){html='<p style="color:#888;margin-top:10px">Kono application nei</p>'}else{list.slice().reverse().forEach((a)=>{let actualIndex=apps.indexOf(a);html+='<div class="appItem" style="border-left-color:'+(a.status=='Completed'?'green':a.status=='Working'?'blue':'orange')+'"><span class="status '+(a.status=='Completed'?'done':a.status=='Working'?'working':'pending')+'">'+a.status+'</span> <span class="status paid">'+a.paymentStatus+' - Rs.'+(a.amount||100)+'</span> <b> '+a.service+' ('+a.type+')</b> - '+a.name+'<br>📱 '+a.mobile+' | 🪪 '+(a.aadhaar||'N/A')+'<br>🏠 '+(a.address||'')+'<br>📝 '+(a.note||'')+'<br>💳 UTR: <b style="color:green">'+(a.utr||'N/A')+'</b> | ⏰ '+a.time+'<br>'+(currentUser=='ashik'?'<div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><button onclick="updateStatus('+actualIndex+',\'Working\')" style="width:auto;padding:5px 10px;background:blue;font-size:10px">Working</button><button onclick="updateStatus('+actualIndex+',\'Completed\')" style="width:auto;padding:5px 10px;background:green;font-size:10px">Completed</button><a href="tel:'+a.mobile+'" style="background:#25D366;color:#fff;padding:5px 10px;border-radius:10px;text-decoration:none;font-size:10px">Call</a><button onclick="deleteOne('+actualIndex+')" style="width:auto;padding:5px 10px;background:red;font-size:10px">Delete</button></div>':'')+'</div>';});}document.getElementById('adminList').innerHTML=html;}
+function updateStatus(i,s){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps[i].status=s;localStorage.setItem('all_applications',JSON.stringify(apps));renderAdmin();}
+function deleteOne(i){if(confirm('Delete?')){let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps.splice(i,1);localStorage.setItem('all_applications',JSON.stringify(apps));renderAdmin();}}
 function openForm(service){currentService=service;formTitle.innerText=service+' - Apply Form';M.style.display='flex'}
 function closeForm(){M.style.display='none'}
-function submitForm(){
-let name=f_name.value, mob=f_mobile.value, aadhaar=f_aadhaar.value, dob=f_dob.value, addr=f_address.value, note=f_doc.value, type=f_type.value;
-if(!name||!mob){alert('Name & Mobile lagbe!');return}
-let msg=`*NEW APPLICATION - ASHIK CYBER CAFE*%0A%0A*Service:* ${currentService} (${type})%0A*Name:* ${name}%0A*Mobile:* ${mob}%0A*Aadhaar:* ${aadhaar}%0A*DOB:* ${dob}%0A*Address:* ${addr}%0A*Note:* ${note}%0A%0A_Portal theke pathano_`;
-window.open('https://wa.me/916289361870?text='+msg,'_blank');
-alert('Success! Tomar application 6289361870 number e chole geche!');
-closeForm();
-}
-</script>
-</body>
-</html>
+function goToPayment(){let name=f_name.value,mob=f_mobile.value;if(!name||!mob){alert('Name & Mobile lagbe!');return}tempData={name:name,mobile:mob,aadhaar:f_aadhaar.value,dob:f_dob.value,address:f_address.value,note:f_doc.value,type:f_type.value};document.getElementById('payService').innerText=currentService+' - '+name;M.style.display='none';PayModal.style.display='flex';}
+function closePay(){PayModal.style.display='none';M.style.display='flex';}
+function finalSubmit(){let utr=document.getElementById('utr').value,amt=document.getElementById('payAmount').value;if(!utr||utr.length<6){alert('UTR dao! Paisa na dile Apply hobe na!');return}if(!amt){alert('Amount dao!');return}let apps=JSON.parse(localStorage.getItem('all_applications')||'[]');apps.push({user:currentUser,service:currentService,type:tempData.type,name:tempData.name,mobile:tempData.mobile,aadhaar:tempData.aadhaar,dob:tempData.dob,address:tempData.address,note:tempData.note,time:new Date().toLocaleString(),status:'Pending',paymentStatus:'Paid',utr:utr,amount:amt});localStorage.setItem('all_applications',JSON.stringify(apps));PayModal.style.display='none';alert('✅ Payment Verified! Application Submit!');renderAdmin();location.reload();}
+</script></body></html>
