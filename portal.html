@@ -43,7 +43,13 @@ th{background:#0f172a;color:#fff}
 <button class="btn b1" onclick="login()">LOGIN</button>
 <button class="btn" style="background:#e2e8f0" onclick="rg.style.display='block';lg.style.display='none'">New Retailer Register</button>
 
-</div>
+</div>  <div id="rg" class="box" style="max-width:400px;margin:40px auto;text-align:center;display:none">
+  <h2 style="color:#0f172a">NEW RETAILER REGISTRATION</h2>
+  <input id="ru" placeholder="New Username">
+  <input id="rp" type="password" placeholder="New Password">
+  <button class="btn b1" onclick="register()">REGISTER NOW</button>
+  <button class="btn" style="background:#e2e8f0" onclick="lg.style.display='block';rg.style.display='none'">Back to Login</button>
+  </div>
 
 <div id="rg" class="box" style="display:none;max-width:400px;margin:40px auto">
 <h3>Retailer Registration</h3>
@@ -111,8 +117,43 @@ cur.b-=cp;let i=users.findIndex(x=>x.u==cur.u);users[i].b=cur.b;wb.innerText='�
 apps.push({dt:new Date().toLocaleString(),ret:cur.u,svc:cs,name:nm,aadhar:ad,mob:mo,ip:cip,price:cp,status:'Pending',dl:''});
 save();md.style.display='none';alert('✅ SUCCESS! ₹'+cp+' Wallet theke kete geche! Apply Admin e chole geche');
 }
-function renderA(){let h='';[...apps].reverse().forEach((a,i)=>{let ri=apps.length-1-i;let btn=a.status=='Pending'?<button onclick="let l=prompt('Download Link dao:');if(l){apps[${ri}].dl=l;apps[${ri}].status='Approved';save();renderA();}" style="background:blue;color:white;padding:5px">Kaj Complete - Approve</button>:<span style="color:green">Approved ✅</span>;h+=<tr><td>${a.dt}</td><td>${a.ret}</td><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td>${a.mob}</td><td>₹${a.price}</td><td style="color:${a.status=='Pending'?'red':'green'}">${a.status}</td><td>${btn}</td></tr>});document.getElementById('adminTable').innerHTML=h;}}
-function addW(){let u=au.value.trim(),a=parseInt(aa.value);if(!u||!a)return alert('Username + Amount dao');let f=users.find(x=>x.u==u);if(!f)return alert('Retailer pawa jay ni');f.b+=a;save();alert('✅ ₹'+a+' Add Hoye Geche '+u+' er Wallet e');renderA();}
+function doApply(){
+ let nm=fn.value.trim(),ad=fa.value.trim(),mo=fm.value.trim();
+ if(!nm||ad.length!=12||mo.length!=10){fe.innerText='Name + 12 Digit Aadhar + 10 Digit Mobile sothik dao';return;}
+ if(cur.b<cp){alert('❌ Wallet e taka nei! Ache ₹'+cur.b+' Lagbe ₹'+cp+' | Admin ke bolo Add korte');return;}
+ cur.b-=cp;let i=users.findIndex(x=>x.u==cur.u);users[i].b=cur.b;wb.innerText='₹'+cur.b+' | '+cur.u;
+ apps.push({dt:new Date().toLocaleString(),ret:cur.u,svc:cs,name:nm,aadhar:ad,mob:mo,ip:cip,price:cp,status:'Pending',dl:''});
+ save();md.style.display='none';alert('✅ SUCCESS! ₹'+cp+' Wallet theke kete geche! Apply Admin e chole geche');renderS();renderA();
+}
+function renderA(){
+ let h='';[...apps].reverse().forEach((a,i)=>{
+  let ri=apps.length-1-i;
+  let btn=a.status=='Pending'?<button onclick="let l=prompt('Download Link dao:');if(l){apps[${ri}].dl=l;apps[${ri}].status='Approved';save();renderA();renderS();}" style="background:green;color:white">Approve</button> <button onclick="if(confirm('Reject? Refund hobe')){let f=users.find(x=>x.u==apps[${ri}].ret);f.b+=apps[${ri}].price;apps[${ri}].status='Rejected';save();renderA();renderS();}" style="background:red;color:white">Reject</button>:<b style="color:${a.status=='Approved'?'green':'red'}">${a.status}</b> <a href="${a.dl}" target="_blank">View</a>;
+  h+=<tr><td>${a.dt}</td><td>${a.ret}</td><td>${a.svc}</td><td>${a.name}</td><td>${a.aadhar}</td><td>${a.mob}</td><td>${a.ip}</td><td>₹${a.price}</td><td>${a.status}</td><td>${btn}</td></tr>;
+ });
+ document.getElementById('adminTable').innerHTML=h||'<tr><td colspan=10>No Data</td></tr>';
+}
+function addW(){
+ let u=document.getElementById('au').value.trim(),a=parseInt(document.getElementById('aa').value);
+ if(!u||!a)return alert('Username + Amount dao');
+ let f=users.find(x=>x.u==u);if(!f)return alert('User nai');
+ f.b+=a;save();if(cur&&cur.u==u){cur.b=f.b;wb.innerText='₹'+cur.b+' | '+cur.u;}alert('₹'+a+' Add Done');renderA();
+}
+function login(){
+ let u=lu.value.trim(),p=lp.value.trim();
+ let f=users.find(x=>x.u==u && x.p==p);
+ if(!f){alert('Login Failed');return;}
+ cur=f;localStorage.setItem('cur',JSON.stringify(cur));location.reload();
+}
+function register(){
+ let u=ru.value.trim(),p=rp.value.trim();
+ if(!u||!p){alert('Username Pass dao');return;}
+ if(users.find(x=>x.u==u)){alert('ID ache');return;}
+ users.push({u:u,p:p,b:500});localStorage.setItem('users',JSON.stringify(users));
+ alert('ID Banano Holo: '+u);lg.style.display='block';rg.style.display='none';
+}
 </script>
 </body>
+</html>
+
 </html>
