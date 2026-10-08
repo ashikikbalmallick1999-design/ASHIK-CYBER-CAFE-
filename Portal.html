@@ -1,200 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ASHIK CYBER CAFE - Retailer Portal</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASHIK CYBER CAFE - All Online Services @150</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f0f2f5}
-.header{background:linear-gradient(90deg,#0f172a,#1e40af);color:#fff;padding:15px;text-align:center;font-weight:900;font-size:22px;letter-spacing:1px}
+body{background:#f1f5f9}
+.header{background:#0f172a;color:#fff;padding:14px;text-align:center;font-weight:900;font-size:20px}
 .header span{color:#facc15}
-.card{background:#fff;max-width:450px;margin:20px auto;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1)}
-input,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
-button{width:100%;padding:12px;background:#1e40af;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer;margin-top:10px}
-button:hover{background:#0f172a}
-.small{font-size:13px;color:#666;text-align:center;margin-top:10px}
-.wallet{background:#e0f2fe;border:2px dashed #0284c7;padding:12px;border-radius:10px;text-align:center;font-weight:800;margin:10px 0}
-.price-tag{background:#fef9c3;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:700;display:inline-block}
+.card{background:#fff;max-width:540px;margin:18px auto;padding:18px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ccc;border-radius:8px}
+button{width:100%;padding:11px;background:#1e40af;color:#fff;border:0;border-radius:8px;font-weight:700;margin-top:8px;cursor:pointer}
+.wallet{background:#e0f2fe;border:2px dashed #0284c7;padding:10px;border-radius:10px;text-align:center;font-weight:800}
 .hidden{display:none}
-.admin-box{background:#fffbeb;border:2px solid #f59e0b}
-table{width:100%;font-size:12px;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #ddd;padding:6px;text-align:left}
+table{width:100%;font-size:11px;border-collapse:collapse;margin-top:8px}
+th,td{border:1px solid #ddd;padding:5px}
 th{background:#1e40af;color:#fff}
-.qrbox{text-align:center;background:#f8fafc;padding:15px;border-radius:10px;border:2px solid #16a34a}
+.qrbox{background:#f0fdf4;border:2px solid #16a34a;padding:12px;border-radius:10px;text-align:center}
 </style>
 </head>
 <body>
-<div class="header">💻 ASHIK <span>CYBER CAFE</span> 💻<br><small style="font-size:12px;font-weight:400">Retailer Portal - Howrah, Bagnan</small></div>
+<div class="header">💻 ASHIK <span>CYBER CAFE</span> - All @150</div>
 
-<!-- LOGIN CARD -->
 <div id="loginCard" class="card">
-<h3 style="text-align:center">Retailer Login / Admin Login</h3>
-<input id="lUser" placeholder="Username (Admin: ashik)">
-<input id="lPass" type="password" placeholder="Password (Admin: 1234)">
+<h3 style="text-align:center">Retailer Login</h3>
+<input id="lUser" placeholder="Username">
+<input id="lPass" type="password" placeholder="Password">
 <button onclick="doLogin()">LOGIN</button>
-<div class="small">Retailer not registered? <a href="#" onclick="showReg()">New Retailer Register</a></div>
-<div id="loginMsg" class="small" style="color:red"></div>
+<div style="text-align:center;margin-top:8px;font-size:13px"><a href="#" onclick="showReg()">New Retailer Register</a></div>
 </div>
 
-<!-- REG CARD -->
 <div id="regCard" class="card hidden">
-<h3 style="text-align:center">New Retailer Registration</h3>
+<h3 style="text-align:center">Retailer Registration</h3>
 <input id="rShop" placeholder="Shop Name">
-<input id="rMobile" placeholder="Mobile Number">
-<input id="rUser" placeholder="Create Username">
-<input id="rPass" placeholder="Create Password">
-<button onclick="doReg()">REGISTER NOW</button>
-<div class="small"><a href="#" onclick="showLogin()">Back to Login</a></div>
+<input id="rMobile" placeholder="Mobile">
+<input id="rUser" placeholder="Username">
+<input id="rPass" placeholder="Password">
+<button onclick="doReg()">REGISTER</button>
+<div style="text-align:center;margin-top:8px;font-size:13px"><a href="#" onclick="showLogin()">Back to Login</a></div>
 </div>
 
-<!-- RETAILER DASHBOARD -->
-<div id="retPanel" class="card hidden" style="max-width:900px">
-<h3>Welcome <span id="retName"></span></h3>
-<div class="wallet">💰 Wallet Balance: Rs <span id="walletBal">0</span><br><small>Min Balance for Aadhaar: Rs 180</small></div>
-<button onclick="showRecharge()" style="background:#16a34a">➕ WALLET RECHARGE - Pay to Admin</button>
-<button onclick="showApply()" style="background:#0ea5e9">📝 NEW CUSTOMER APPLY</button>
+<div id="retPanel" class="card hidden" style="max-width:950px">
+<h3 id="retName"></h3>
+<div class="wallet">Wallet: Rs <span id="walletBal">0</span></div>
+<button onclick="toggle('rechargeBox')" style="background:#16a34a">➕ Wallet Recharge</button>
+<button onclick="toggle('applyBox')" style="background:#0ea5e9">📝 New Apply - All Services</button>
 <button onclick="logout()" style="background:#64748b">Logout</button>
 
-<div id="rechargeBox" class="hidden">
-<div class="qrbox">
-<h4>Pay to ASHIK CYBER CAFE (Admin)</h4>
-<p><b>Axis Bank 2248 QR: 6289361870-10@axl</b></p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=6289361870-10@axl&pn=ASHIK%20CYBER%20CAFE&am=500" style="margin:10px"><br>
-<input id="reUtr" placeholder="Enter UTR / Transaction ID (12 digit)">
-<input id="reAmt" type="number" placeholder="Amount Paid Eg: 500">
-<button onclick="submitRecharge()" style="background:#16a34a">Submit Recharge Request</button>
-<small>Admin check kore Wallet e taka add kore debe 10min e</small>
-</div>
+<div id="rechargeBox" class="hidden qrbox">
+<b>Pay - Axis QR: 6289361870-10@axl</b><br>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=6289361870-10@axl&pn=ASHIK%20CYBER%20CAFE"><br>
+<input id="reUtr" placeholder="UTR Number">
+<input id="reAmt" type="number" placeholder="Amount">
+<button onclick="submitRecharge()" style="background:#16a34a">Submit</button>
 </div>
 
 <div id="applyBox" class="hidden">
-<h4>Apply New Service</h4>
-<select id="service" onchange="updatePrice()"></select>
-<div id="priceShow" class="price-tag"></div>
-<input id="cName" placeholder="Customer Name">
-<input id="cMobile" placeholder="Customer Mobile">
-<input id="cAadhaar" placeholder="Customer Aadhaar">
-<input id="cNote" placeholder="Note (Optional)">
-<button onclick="submitApply()">Apply Now (Deduct from Wallet)</button>
-<div id="applyMsg" class="small"></div>
+<select id="service" onchange="updPrice()"></select>
+<b id="priceShow" style="color:green;display:block;margin:6px 0"></b>
+<input id="cName" placeholder="Customer Name / Janom Name">
+<input id="cFName" placeholder="Father Name">
+<input id="cDob" type="date">
+<input id="cAadhaar" placeholder="Aadhaar Number (Aadhaar er jonno must)">
+<input id="cVoter" placeholder="Voter Number (Voter er jonno)">
+<input id="cMobile" placeholder="Mobile Number">
+<textarea id="cAddress" placeholder="Full Address / IP Address"></textarea>
+<button onclick="submitApply()">APPLY NOW</button>
+<div id="applyMsg" style="color:green;text-align:center"></div>
 </div>
 
-<h4 style="margin-top:20px">My Applications</h4>
 <table><thead><tr><th>Service</th><th>Customer</th><th>Price</th><th>Status</th></tr></thead><tbody id="retTable"></tbody></table>
-<h4 style="margin-top:20px">My Recharge History</h4>
-<table><thead><tr><th>Amount</th><th>UTR</th><th>Status</th></tr></thead><tbody id="retRechargeTable"></tbody></table>
 </div>
 
-<!-- ADMIN DASHBOARD -->
-<div id="adminPanel" class="card hidden" style="max-width:1100px">
-<h3>👑 ASHIK CYBER CAFE - ADMIN PANEL</h3>
-<button onclick="logout()" style="background:#64748b;width:auto;padding:6px 15px">Logout</button>
-
-<div class="card admin-box">
-<h4>💰 Add Wallet Balance to Retailer</h4>
-<input id="addRetUser" placeholder="Retailer Username">
-<input id="addRetAmt" type="number" placeholder="Amount Eg: 500">
-<button onclick="adminAddWallet()">Add to Wallet</button>
+<div id="adminPanel" class="card hidden" style="max-width:1150px">
+<h3>👑 ADMIN - ASHIK CYBER CAFE</h3>
+<button onclick="logout()" style="width:auto;background:#64748b">Logout</button>
+<div style="background:#fffbeb;border:2px solid orange;padding:10px;border-radius:10px;margin:10px 0">
+<input id="addRetUser" placeholder="Retailer Username"><input id="addRetAmt" type="number" placeholder="Amount">
+<button onclick="adminAddWallet()">Add Wallet</button>
 </div>
-
-<h4>Pending Wallet Recharge Requests (Money came to your Axis Account)</h4>
-<table><thead><tr><th>Retailer</th><th>Amount</th><th>UTR</th><th>Action</th></tr></thead><tbody id="adminRechargeTable"></tbody></table>
-
-<h4 style="margin-top:20px">All Retailer Applications</h4>
-<table><thead><tr><th>Retailer</th><th>Service</th><th>Customer</th><th>Mobile</th><th>Price</th><th>UTR-Wallet</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminAppTable"></tbody></table>
-
-<h4 style="margin-top:20px">All Retailers</h4>
-<table><thead><tr><th>Shop</th><th>Username</th><th>Mobile</th><th>Wallet</th></tr></thead><tbody id="adminRetTable"></tbody></table>
+<h4>Recharge Requests</h4>
+<table><thead><tr><th>Retailer</th><th>Amt</th><th>UTR</th><th>Action</th></tr></thead><tbody id="adminRechargeTable"></tbody></table>
+<h4>All Applications</h4>
+<table><thead><tr><th>Retailer</th><th>Service</th><th>Name</th><th>Aadhaar/Voter</th><th>Mobile</th><th>Address/IP</th><th>Price</th><th>Status</th></tr></thead><tbody id="adminAppTable"></tbody></table>
 </div>
 
 <script>
 const SERVICES=[
-{name:"Aadhaar Card (New/Correction)",price:180},
-{name:"Birth Certificate",price:100},
-{name:"Death Certificate",price:100},
-{name:"Income Certificate",price:100},
-{name:"Caste Certificate",price:100},
-{name:"Residential Certificate",price:100},
-{name:"OBC Certificate",price:100},
-{name:"EWS Certificate",price:100},
-{name:"PAN Card",price:150},
-{name:"Voter Card",price:100},
-{name:"MSME Certificate",price:100},
-{name:"GST Registration",price:300},
-{name:"Trade License",price:200},
-{name:"Lakshmir Bhandar",price:50},
-{name:"Swasthya Sathi",price:50},
-{name:"Oasis Scholarship",price:100},
-{name:"Kanyashree",price:50},
-{name:"Yuvashree",price:50},
-{name:"Rupashree",price:50},
-{name:"Krishak Bandhu",price:50}
+{name:"Aadhaar - Mobile Link / Update",price:180},
+{name:"Voter - New Apply",price:199},
+{name:"Voter - Name Miss Match Correction",price:50},
+{name:"Voter - Mobile Link",price:75},
+{name:"Birth Certificate",price:150},
+{name:"Death Certificate",price:150},
+{name:"Income Certificate",price:150},
+{name:"Caste Certificate",price:150},
+{name:"Residential Certificate",price:150},
+{name:"OBC Certificate",price:150},
+{name:"EWS Certificate",price:150},
+{name:"PAN Card - New / Correction",price:150},
+{name:"Ration Card - New / Correction",price:150},
+{name:"Voter Correction - Address / DOB",price:150},
+{name:"MSME Certificate",price:150},
+{name:"GST Registration",price:150},
+{name:"Trade License",price:150},
+{name:"Ayushman Bharat Card",price:150},
+{name:"Swasthya Sathi Card",price:150},
+{name:"Lakshmir Bhandar",price:150},
+{name:"Oasis Scholarship",price:150},
+{name:"Kanyashree",price:150},
+{name:"Yuvashree",price:150},
+{name:"Rupashree",price:150},
+{name:"Krishak Bandhu",price:150},
+{name:"E-Shram Card",price:150},
+{name:"Labour Card",price:150},
+{name:"PF Withdrawal / UAN",price:150},
+{name:"Driving License",price:150},
+{name:"Passport Apply",price:150},
+{name:"Land Record / Porcha",price:150},
+{name:"Mutation / Conversion",price:150}
 ];
-function loadServices(){let s=document.getElementById("service");s.innerHTML="";SERVICES.forEach((v,i)=>{s.innerHTML+=`<option value="${i}">${v.name} - Rs ${v.price}</option>`});updatePrice()}
-function updatePrice(){let i=document.getElementById("service").value;document.getElementById("priceShow").innerText="Price: Rs "+SERVICES[i].price}
+function loadServices(){let s=service;s.innerHTML="";SERVICES.forEach((v,i)=>s.innerHTML+=`<option value="${i}">${v.name} - Rs ${v.price}</option>`);updPrice()}
+function updPrice(){priceShow.innerText="Price: Rs "+SERVICES[service.value].price}
 function getData(k){return JSON.parse(localStorage.getItem(k)||"[]")}
 function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function getRets(){return getData("ashik_retailers")}
 function showReg(){loginCard.classList.add("hidden");regCard.classList.remove("hidden")}
 function showLogin(){regCard.classList.add("hidden");loginCard.classList.remove("hidden")}
-function doReg(){
-let shop=rShop.value,mobile=rMobile.value,user=rUser.value,pass=rPass.value;
-if(!shop||!mobile||!user||!pass){alert("Fill all");return}
-let rets=getRets();
-if(rets.find(x=>x.user==user)){alert("Username exists");return}
-rets.push({shop,mobile,user,pass,wallet:0});setData("ashik_retailers",rets);
-alert("Registered! Now Login");showLogin();
-}
+function toggle(id){document.getElementById(id).classList.toggle("hidden")}
+function doReg(){let shop=rShop.value,mobile=rMobile.value,user=rUser.value,pass=rPass.value;if(!shop||!mobile||!user||!pass){alert("Fill");return}let rets=getRets();if(rets.find(x=>x.user==user)){alert("Exists");return}rets.push({shop,mobile,user,pass,wallet:0});setData("ashik_retailers",rets);alert("Done!");showLogin()}
 function doLogin(){
 let u=lUser.value,p=lPass.value;
-if(u=="ashik"&&p=="1234"){loginCard.classList.add("hidden");adminPanel.classList.remove("hidden");loadAdmin();return}
-let rets=getRets();let r=rets.find(x=>x.user==u&&x.pass==p);
-if(!r){loginMsg.innerText="Wrong login!";return}
-localStorage.setItem("ashik_current",u);
-loginCard.classList.add("hidden");retPanel.classList.remove("hidden");
-retName.innerText=r.shop+" ("+r.user+")";
-loadServices();loadRet();
+if(u=="ashik2248"&&p=="Ashik@2026"){loginCard.classList.add("hidden");adminPanel.classList.remove("hidden");loadAdmin();return}
+let rets=getRets();let r=rets.find(x=>x.user==u&&x.pass==p);if(!r){alert("Wrong");return}
+localStorage.setItem("ashik_current",u);loginCard.classList.add("hidden");retPanel.classList.remove("hidden");retName.innerText="Shop: "+r.shop+" | User: "+r.user;loadServices();loadRet();
 }
 function loadRet(){
-let cu=localStorage.getItem("ashik_current");let rets=getRets();let me=rets.find(x=>x.user==cu);
-walletBal.innerText=me.wallet;
-let apps=getData("ashik_apps").filter(a=>a.retUser==cu);
-retTable.innerHTML="";apps.forEach(a=>{retTable.innerHTML+=`<tr><td>${a.service}</td><td>${a.cName}</td><td>${a.price}</td><td>${a.status}</td></tr>`});
-let rechs=getData("ashik_recharges").filter(r=>r.retUser==cu);
-retRechargeTable.innerHTML="";rechs.forEach(r=>{retRechargeTable.innerHTML+=`<tr><td>${r.amount}</td><td>${r.utr}</td><td>${r.status}</td></tr>`});
+let cu=localStorage.getItem("ashik_current");let rets=getRets();let me=rets.find(x=>x.user==cu);walletBal.innerText=me.wallet;
+let apps=getData("ashik_apps").filter(a=>a.retUser==cu);retTable.innerHTML="";apps.forEach(a=>retTable.innerHTML+=`<tr><td>${a.service}</td><td>${a.cName}</td><td>${a.price}</td><td>${a.status}</td></tr>`);
 }
-function showRecharge(){rechargeBox.classList.remove("hidden");applyBox.classList.add("hidden")}
-function showApply(){applyBox.classList.remove("hidden");rechargeBox.classList.add("hidden")}
-function submitRecharge(){
-let utr=reUtr.value,amt=parseInt(reAmt.value),cu=localStorage.getItem("ashik_current");
-if(!utr||!amt){alert("Enter UTR and Amount");return}
-let rechs=getData("ashik_recharges");rechs.push({retUser:cu,amount:amt,utr,status:"Pending",time:Date.now()});setData("ashik_recharges",rechs);
-alert("Recharge Request Sent! Admin will add after checking Axis Bank 2248 account");reUtr.value="";reAmt.value="";loadRet();
-}
+function submitRecharge(){let utr=reUtr.value,amt=parseInt(reAmt.value),cu=localStorage.getItem("ashik_current");if(!utr||!amt){alert("Fill");return}let rechs=getData("ashik_recharges");rechs.push({retUser:cu,amount:amt,utr,status:"Pending"});setData("ashik_recharges",rechs);alert("Sent!");reUtr.value="";reAmt.value=""}
 function submitApply(){
-let si=service.value;let ser=SERVICES[si];let cu=localStorage.getItem("ashik_current");
-let rets=getRets();let me=rets.find(x=>x.user==cu);
-if(me.wallet<ser.price){alert("Wallet low! Recharge first. Balance: "+me.wallet+", Need: "+ser.price);return}
-let cNameVal=cName.value,cMob=cMobile.value,cAad=cAadhaar.value;
-if(!cNameVal||!cMob){alert("Fill Customer details");return}
+let si=service.value;let ser=SERVICES[si];let cu=localStorage.getItem("ashik_current");let rets=getRets();let me=rets.find(x=>x.user==cu);
+if(me.wallet<ser.price){alert("Low Wallet! Balance "+me.wallet+" Need "+ser.price);return}
+let data={retUser:cu,service:ser.name,price:ser.price,cName:cName.value,cFName:cFName.value,cDob:cDob.value,cAadhaar:cAadhaar.value,cVoter:cVoter.value,cMobile:cMobile.value,cAddress:cAddress.value,status:"Pending"};
+if(!data.cName||!data.cMobile){alert("Name Mobile must");return}
 me.wallet-=ser.price;setData("ashik_retailers",rets);
-let apps=getData("ashik_apps");apps.push({retUser:cu,shop:me.shop,service:ser.name,price:ser.price,cName:cNameVal,cMobile:cMob,cAadhaar:cAad,status:"Pending",time:Date.now()});setData("ashik_apps",apps);
-applyMsg.innerText="Applied! Rs "+ser.price+" deducted. Wallet: "+me.wallet;loadRet();
+let apps=getData("ashik_apps");apps.push(data);setData("ashik_apps",apps);
+applyMsg.innerText="Success Rs "+ser.price+" deducted";loadRet();
 }
 function loadAdmin(){
-let rets=getRets();adminRetTable.innerHTML="";rets.forEach(r=>{adminRetTable.innerHTML+=`<tr><td>${r.shop}</td><td>${r.user}</td><td>${r.mobile}</td><td>${r.wallet}</td></tr>`});
-let rechs=getData("ashik_recharges");adminRechargeTable.innerHTML="";rechs.forEach((r,i)=>{if(r.status=="Pending")adminRechargeTable.innerHTML+=`<tr><td>${r.retUser}</td><td>${r.amount}</td><td>${r.utr}</td><td><button onclick="approveRe(${i})">Approve & Add Wallet</button></td></tr>`});
-let apps=getData("ashik_apps");adminAppTable.innerHTML="";apps.forEach((a,i)=>{adminAppTable.innerHTML+=`<tr><td>${a.retUser}</td><td>${a.service}</td><td>${a.cName}</td><td>${a.cMobile}</td><td>${a.price}</td><td>Wallet Paid</td><td>${a.status}</td><td><button onclick="markDone(${i})">Done</button></td></tr>`});
+let rechs=getData("ashik_recharges");adminRechargeTable.innerHTML="";rechs.forEach((r,i)=>{if(r.status=="Pending")adminRechargeTable.innerHTML+=`<tr><td>${r.retUser}</td><td>${r.amount}</td><td>${r.utr}</td><td><button onclick="approveRe(${i})">Approve</button></td></tr>`});
+let apps=getData("ashik_apps");adminAppTable.innerHTML="";apps.forEach((a,i)=>{adminAppTable.innerHTML+=`<tr><td>${a.retUser}</td><td>${a.service}</td><td>${a.cName}</td><td>${a.cAadhaar}/${a.cVoter}</td><td>${a.cMobile}</td><td>${a.cAddress}</td><td>${a.price}</td><td>${a.status} <button onclick="markDone(${i})">Done</button></td></tr>`});
 }
-function approveRe(i){
-let rechs=getData("ashik_recharges");let r=rechs[i];let rets=getRets();let me=rets.find(x=>x.user==r.retUser);
-me.wallet+=r.amount;r.status="Approved";setData("ashik_retailers",rets);setData("ashik_recharges",rechs);loadAdmin();alert("Added Rs "+r.amount+" to "+r.retUser);
-}
+function approveRe(i){let rechs=getData("ashik_recharges");let r=rechs[i];let rets=getRets();let me=rets.find(x=>x.user==r.retUser);me.wallet+=r.amount;r.status="Approved";setData("ashik_retailers",rets);setData("ashik_recharges",rechs);loadAdmin()}
 function markDone(i){let apps=getData("ashik_apps");apps[i].status="Completed";setData("ashik_apps",apps);loadAdmin()}
-function adminAddWallet(){
-let u=addRetUser.value,a=parseInt(addRetAmt.value);let rets=getRets();let me=rets.find(x=>x.user==u);
-if(!me){alert("Retailer not found");return}me.wallet+=a;setData("ashik_retailers",rets);loadAdmin();alert("Added!");
-}
+function adminAddWallet(){let u=addRetUser.value,a=parseInt(addRetAmt.value);let rets=getRets();let me=rets.find(x=>x.user==u);if(!me){alert("Not found");return}me.wallet+=a;setData("ashik_retailers",rets);loadAdmin();alert("Added")}
 function logout(){localStorage.removeItem("ashik_current");location.reload()}
 loadServices();
 </script>
