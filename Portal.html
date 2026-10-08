@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASHIK CYBER CAFE - All Services</title>
+<title>ASHIK CYBER CAFE</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#06162f;color:#fff;min-height:100vh}
@@ -11,13 +11,12 @@ body{background:#06162f;color:#fff;min-height:100vh}
 .box{background:#fff;color:#000;padding:25px;border-radius:18px;width:100%;max-width:380px}
 input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:10px}
 button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
+.tab{display:flex;gap:10px;margin-bottom:15px}.tab button{flex:1;background:#eee;color:#000}.tab button.active{background:#0a1931;color:#fff}
 .dash{display:none;max-width:900px;margin:0 auto;padding:15px}
-.head{background:#fff;color:#000;padding:12px 15px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center;position:relative}
-.card span{font-size:22px}
-.card h4{font-size:13px;margin:6px 0;height:30px}
-.card a{display:block;background:#25D366;color:#fff;padding:6px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:bold}
+.head{background:#fff;color:#000;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.card{background:#fff;color:#000;padding:12px;border-radius:12px;text-align:center}
+.card a{display:block;background:#25D366;color:#fff;padding:6px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:bold;margin-top:5px}
 .cat{background:#ffcc00;color:#000;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;margin:15px 0 5px;display:inline-block}
 @media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
 </style>
@@ -26,63 +25,77 @@ button{width:100%;padding:12px;background:#0a1931;color:#fff;border:0;border-rad
 
 <div id="L" class="login">
 <div class="box">
-<h2 style="text-align:center;color:#0a1931">ASHIK CYBER CAFE 🔐</h2>
-<p style="text-align:center;color:#666;margin-bottom:10px">All Online Services Portal</p>
-<input id="u" placeholder="Username = ashik">
-<input id="p" type="password" placeholder="Password = 1234">
-<button onclick="if(u.value=='ashik'&&p.value=='1234'){L.style.display='none';D.style.display='block'}else{alert('Wrong Login')}">LOGIN</button>
+<h2 style="text-align:center;color:#0a1931">ASHIK CYBER CAFE</h2>
+<p style="text-align:center;font-size:13px;margin:5px 0 15px">Login / Registration Koro</p>
+<div class="tab"><button id="t1" class="active" onclick="showLogin()">LOGIN</button><button id="t2" onclick="showReg()">REGISTRATION</button></div>
+
+<div id="loginForm">
+<input id="u" placeholder="Username">
+<input id="p" type="password" placeholder="Password">
+<button onclick="doLogin()">LOGIN</button>
+<p style="text-align:center;font-size:11px;color:#888;margin-top:8px">Demo: ashik / 1234</p>
+</div>
+
+<div id="regForm" style="display:none">
+<input id="rn" placeholder="Full Name">
+<input id="rp" placeholder="Mobile Number">
+<input id="ru" placeholder="Create Username">
+<input id="rpass" type="password" placeholder="Create Password">
+<button onclick="doReg()" style="background:#25D366">REGISTER NOW</button>
+</div>
+
 </div>
 </div>
 
 <div id="D" class="dash">
-<div class="head"><b>ASHIK CYBER CAFE ✅</b><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div>
+<div class="head"><b id="welcome">ASHIK CYBER CAFE ✅</b><button onclick="location.reload()" style="width:auto;padding:6px 15px;background:red">Logout</button></div>
 
 <div class="cat">📋 CERTIFICATE</div>
 <div class="grid">
-<div class="card"><span>📄</span><h4>Birth Certificate</h4><a href="https://wa.me/919999999999?text=Birth%20Certificate">Order</a></div>
-<div class="card"><span>⚰️</span><h4>Death Certificate</h4><a href="https://wa.me/919999999999?text=Death%20Certificate">Order</a></div>
-<div class="card"><span>💰</span><h4>Income Certificate</h4><a href="https://wa.me/919999999999?text=Income">Order</a></div>
-<div class="card"><span>🏠</span><h4>Residential Certificate</h4><a href="https://wa.me/919999999999?text=Residential">Order</a></div>
-<div class="card"><span>👥</span><h4>Caste Certificate SC/ST/OBC</h4><a href="https://wa.me/919999999999?text=Caste">Order</a></div>
-<div class="card"><span>💍</span><h4>Marriage Certificate</h4><a href="https://wa.me/919999999999?text=Marriage">Order</a></div>
+<div class="card">📄<br>Birth/Death Cert.<br><a href="https://wa.me/919999999999?text=Birth">Order</a></div>
+<div class="card">💰<br>Income Cert.<br><a href="https://wa.me/919999999999?text=Income">Order</a></div>
+<div class="card">🏠<br>Residential<br><a href="https://wa.me/919999999999?text=Residential">Order</a></div>
+<div class="card">👥<br>Caste SC/ST/OBC<br><a href="https://wa.me/919999999999?text=Caste">Order</a></div>
 </div>
 
-<div class="cat">🪪 ID & CARD SERVICES</div>
+<div class="cat">🪪 ID & CARD</div>
 <div class="grid">
-<div class="card"><span>🆔</span><h4>Aadhaar - Pan Link</h4><a href="https://wa.me/919999999999?text=Aadhaar">Order</a></div>
-<div class="card"><span>💳</span><h4>Pan Card New/Correction</h4><a href="https://wa.me/919999999999?text=Pan">Order</a></div>
-<div class="card"><span>🗳️</span><h4>Voter Card New/Correction</h4><a href="https://wa.me/919999999999?text=Voter">Order</a></div>
-<div class="card"><span>🍚</span><h4>Ration Card E-KYC</h4><a href="https://wa.me/919999999999?text=Ration">Order</a></div>
-<div class="card"><span>🛂</span><h4>Passport Apply</h4><a href="https://wa.me/919999999999?text=Passport">Order</a></div>
-<div class="card"><span>🚗</span><h4>Driving Licence</h4><a href="https://wa.me/919999999999?text=DL">Order</a></div>
-<div class="card"><span>👷</span><h4>E-Shram Card</h4><a href="https://wa.me/919999999999?text=Eshram">Order</a></div>
-<div class="card"><span>🏥</span><h4>Ayushman Card</h4><a href="https://wa.me/919999999999?text=Ayushman">Order</a></div>
+<div class="card">🆔<br>Aadhaar Service<br><a href="https://wa.me/919999999999?text=Aadhaar">Order</a></div>
+<div class="card">💳<br>Pan Card<br><a href="https://wa.me/919999999999?text=Pan">Order</a></div>
+<div class="card">🗳️<br>Voter Card<br><a href="https://wa.me/919999999999?text=Voter">Order</a></div>
+<div class="card">🍚<br>Ration E-KYC<br><a href="https://wa.me/919999999999?text=Ration">Order</a></div>
+<div class="card">👷<br>E-Shram Card<br><a href="https://wa.me/919999999999?text=Eshram">Order</a></div>
+<div class="card">🏥<br>Ayushman Bharat<br><a href="https://wa.me/919999999999?text=Ayushman">Order</a></div>
+<div class="card">🛂<br>Passport<br><a href="https://wa.me/919999999999?text=Passport">Order</a></div>
+<div class="card">🚗<br>Driving Licence<br><a href="https://wa.me/919999999999?text=DL">Order</a></div>
 </div>
 
 <div class="cat">🎓 SCHOLARSHIP & YOJANA</div>
 <div class="grid">
-<div class="card"><span>🎓</span><h4>Oasis Scholarship</h4><a href="https://wa.me/919999999999?text=Oasis">Order</a></div>
-<div class="card"><span>📚</span><h4>SVMCM Scholarship</h4><a href="https://wa.me/919999999999?text=SVMCM">Order</a></div>
-<div class="card"><span>👧</span><h4>Kanyashree / Rupashree</h4><a href="https://wa.me/919999999999?text=Kanyashree">Order</a></div>
-<div class="card"><span>💸</span><h4>Lakshmir Bhandar</h4><a href="https://wa.me/919999999999?text=Lakshmir">Order</a></div>
-<div class="card"><span>👨‍🎓</span><h4>Student Credit Card</h4><a href="https://wa.me/919999999999?text=Student%20Credit">Order</a></div>
-<div class="card"><span>🧑‍💼</span><h4>Yuvashree / Karmasree</h4><a href="https://wa.me/919999999999?text=Yuvashree">Order</a></div>
-<div class="card"><span>🌾</span><h4>PM Kisan / Krishak Bandhu</h4><a href="https://wa.me/919999999999?text=PMKisan">Order</a></div>
-<div class="card"><span>🏠</span><h4>Swasthya Sathi / PMAY</h4><a href="https://wa.me/919999999999?text=Swasthya">Order</a></div>
+<div class="card">🎓<br>Oasis Scholarship<br><a href="https://wa.me/919999999999?text=Oasis">Order</a></div>
+<div class="card">📚<br>SVMCM<br><a href="https://wa.me/919999999999?text=SVMCM">Order</a></div>
+<div class="card">💸<br>Lakshmir Bhandar<br><a href="https://wa.me/919999999999?text=Lakshmir">Order</a></div>
+<div class="card">👧<br>Kanyashree<br><a href="https://wa.me/919999999999?text=Kanyashree">Order</a></div>
+<div class="card">🌾<br>PM Kisan<br><a href="https://wa.me/919999999999?text=PMKisan">Order</a></div>
+<div class="card">🧑‍💼<br>Yuvashree<br><a href="https://wa.me/919999999999?text=Yuvashree">Order</a></div>
 </div>
 
 <div class="cat">💼 BUSINESS & OTHER</div>
 <div class="grid">
-<div class="card"><span>🏢</span><h4>Udyam / MSME</h4><a href="https://wa.me/919999999999?text=MSME">Order</a></div>
-<div class="card"><span>🧾</span><h4>GST / ITR Filing</h4><a href="https://wa.me/919999999999?text=GST">Order</a></div>
-<div class="card"><span>🗺️</span><h4>Banglarbhumi / Land Record</h4><a href="https://wa.me/919999999999?text=Land">Order</a></div>
-<div class="card"><span>💡</span><h4>Electric Bill / Recharge</h4><a href="https://wa.me/919999999999?text=Bill">Order</a></div>
-<div class="card"><span>🚂</span><h4>Railway / Flight Ticket</h4><a href="https://wa.me/919999999999?text=Ticket">Order</a></div>
-<div class="card"><span>📝</span><h4>Any Online Form Fillup</h4><a href="https://wa.me/919999999999?text=Form">Order</a></div>
+<div class="card">🏢<br>Udyam / MSME<br><a href="https://wa.me/919999999999?text=MSME">Order</a></div>
+<div class="card">🧾<br>GST / ITR<br><a href="https://wa.me/919999999999?text=GST">Order</a></div>
+<div class="card">🗺️<br>Banglarbhumi<br><a href="https://wa.me/919999999999?text=Land">Order</a></div>
+<div class="card">📝<br>All Form Fillup<br><a href="https://wa.me/919999999999?text=Form">Order</a></div>
 </div>
 
-<p style="text-align:center;margin:25px 0;color:#8ab4f8">© ASHIK CYBER CAFE - All Services Available 24x7</p>
 </div>
 
+<script>
+function showReg(){document.getElementById('loginForm').style.display='none';document.getElementById('regForm').style.display='block';document.getElementById('t1').classList.remove('active');document.getElementById('t2').classList.add('active')}
+function showLogin(){document.getElementById('regForm').style.display='none';document.getElementById('loginForm').style.display='block';document.getElementById('t2').classList.remove('active');document.getElementById('t1').classList.add('active')}
+function doReg(){let n=document.getElementById('rn').value,m=document.getElementById('rp').value,u=document.getElementById('ru').value,p=document.getElementById('rpass').value;if(!n||!m||!u||!p){alert('Sob fill koro bhai!');return}localStorage.setItem('cyber_'+u,JSON.stringify({name:n,mob:m,pass:p}));alert('Registration Success! Ebar Login koro - User: '+u);showLogin();document.getElementById('u').value=u;}
+function doLogin(){let u=document.getElementById('u').value,p=document.getElementById('p').value;if(u=='ashik'&&p=='1234'){openDash('Ashik')}else{let d=localStorage.getItem('cyber_'+u);if(d){let j=JSON.parse(d);if(j.pass==p){openDash(j.name);return}}alert('Wrong Username/Password!')}}
+function openDash(name){document.getElementById('L').style.display='none';document.getElementById('D').style.display='block';document.getElementById('welcome').innerText='Welcome '+name+' ✅'}
+</script>
 </body>
 </html>
