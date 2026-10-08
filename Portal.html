@@ -6,19 +6,15 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0f172a;color:#fff;padding:10px}
-.card{background:#1e293b;padding:20px;border-radius:16px;max-width:900px;margin:15px auto}
+.card{background:#1e293b;padding:20px;border-radius:16px;max-width:900px;margin:15px auto;border:1px solid #334155}
 h2{text-align:center;color:#38bdf8}
 input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155}
 .btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:8px}
-.b1{background:#38bdf8;color:#000}
-.b2{background:#22c55e;color:#000}
-.b3{background:#475569;color:#fff}
+.b1{background:#38bdf8;color:#000}.b2{background:#22c55e;color:#000}.b3{background:#475569;color:#fff}
 .wallet{background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#000;padding:18px;border-radius:14px;text-align:center;margin:12px 0}
-.wallet h1{font-size:32px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .scard{background:#0f172a;border:1px solid #334155;padding:12px;border-radius:12px;cursor:pointer;text-align:center}
-.scard b{color:#38bdf8}
-.price{color:#facc15;font-weight:bold}
+.scard b{color:#38bdf8}.price{color:#facc15;font-weight:bold}
 .ret-box{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border-left:4px solid #22c55e}
 .info{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border:1px solid #334155;font-size:13px}
 </style>
@@ -42,8 +38,7 @@ input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;
 
 <div id="retPage" class="card" style="display:none">
 <h2>Retailer Panel</h2>
-<div class="wallet"><p>💼 MY WALLET BALANCE</p><h1 id="wBal">₹0</h1><p id="wMob">Mobile: -</p><p id="wUser">User: -</p><p style="font-size:12px;margin-top:5px">Taka sesh hole Admin ke bolo</p></div>
-
+<div class="wallet"><p>💼 MY WALLET BALANCE</p><h1 id="wBal">₹0</h1><p id="wMob"></p><p id="wUser"></p></div>
 <h3>📋 Services</h3>
 <div class="grid">
 <div class="scard" onclick="selectService('Aadhar Mobile Link',180)"><b>Aadhar Mobile Link</b><br><span class="price">₹180</span></div>
@@ -53,7 +48,6 @@ input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;
 <div class="scard" onclick="selectService('Income Certificate',300)"><b>Income Certificate</b><br><span class="price">₹300</span></div>
 <div class="scard" onclick="selectService('Voter Card',150)"><b>Voter Card</b><br><span class="price">₹150</span></div>
 </div>
-
 <div id="applyBox" style="display:none;background:#0f172a;padding:15px;border-radius:12px;margin-top:15px;border:2px solid #38bdf8">
 <h3 id="selServiceName"></h3><p id="selPrice" class="price"></p>
 <input id="cName" placeholder="Customer Name"><input id="cAadhar" placeholder="Aadhar Number"><input id="cMob" placeholder="Customer Mobile"><input id="cExtra" placeholder="Address">
@@ -74,254 +68,20 @@ input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;
 </div>
 
 <script>
-let users=JSON.parse(localStorage.getItem('ac_users_v2')||'[]');
-let selService={};let cur=null;
-function save(){localStorage.setItem('ac_users_v2',JSON.stringify(users));}
+let users=JSON.parse(localStorage.getItem('ac_final_one')||'[]');
+let selService={},cur=null;
+let _a='YXNoaWsyMjQ4',_p='QXNoaWtAMjAyNg==';
+function save(){localStorage.setItem('ac_final_one',JSON.stringify(users))}
 function showReg(){loginPage.style.display='none';regPage.style.display='block'}
-function showLogin(){regPage.style.display='none';loginPage.style.display='block'}
-function register(){let u=ru.value.trim(),p=rp.value.trim(),m=rm.value.trim(),n=rn.value.trim();if(!u||!p||!m){alert('fill koro');return}if(users.find(x=>x.u==u)){alert('username ache');return}users.push({u,p,m,n,b:0,apps:[]});save();alert('Success');showLogin();}
-function login(){let u=lu.value.trim(),p=lp.value.trim();if(u==='ashik2248'&&p==='Ashik@2026'){cur={admin:true};loginPage.style.display='none';adminPage.style.display='block';renderAdmin();return;}let f=users.find(x=>x.u==u&&x.p==p);if(!f){alert('wrong');return}cur=f;loginPage.style.display='none';retPage.style.display='block';renderRet();}
+function showLogin(){regPage.style.display='none';loginPage.style.display='block';adminPage.style.display='none';retPage.style.display='none'}
+function register(){let u=ru.value.trim(),p=rp.value.trim(),m=rm.value.trim(),n=rn.value.trim();if(!u||!p||!m){alert('fill koro');return}if(users.find(x=>x.u==u)){alert('username ache');return}users.push({u,p,m,n,b:0,apps:[]});save();alert('Success');showLogin()}
+function login(){let u=lu.value.trim(),p=lp.value.trim();if(u==atob(_a)&&p==atob(_p)){cur={admin:true};loginPage.style.display='none';adminPage.style.display='block';renderAdmin();return}let f=users.find(x=>x.u==u&&x.p==p);if(!f){alert('wrong');return}cur=f;loginPage.style.display='none';retPage.style.display='block';renderRet()}
 async function getIP(){try{let r=await fetch('https://api.ipify.org?format=json');let j=await r.json();return j.ip;}catch{return 'IP-not-found'}}
-function renderRet(){wBal.innerText='₹'+cur.b;wMob.innerText='Mobile: '+cur.m;wUser.innerText='User: '+cur.u;}
-function selectService(name,price){selService={name,price};selServiceName.innerText=name;selPrice.innerText='Price: ₹'+price;applyBox.style.display='block';}
-async function applyService(){if(cur.b<selService.price){alert('Balance kom! Admin ke taka dite bolo. Balance: ₹'+cur.b);return}let cn=cName.value.trim(),ca=cAadhar.value.trim(),cm=cMob.value.trim(),ce=cExtra.value.trim();if(!cn||!ca||!cm){alert('Name+Aadhar+Mobile dao');return}let ip=await getIP();cur.b-=selService.price;cur.apps.push({service:selService.name,price:selService.price,cn,ca,cm,ce,ip,dt:new Date().toLocaleString()});save();renderRet();retMsg.innerText='✅ Apply Success!';cName.value='';cAadhar.value='';cMob.value='';cExtra.value='';}
-function renderAdmin(){retList.innerHTML='';appList.innerHTML='';let total=0;users.forEach(u=>{retList.innerHTML+=`<div class="ret-box"><b>${u.u}</b> 📱 ${u.m} | 💰 ₹${u.b}</div>`;u.apps.forEach(ap=>{total+=ap.price;appList.innerHTML+=`<div class="info"><b>${ap.service}</b> - ₹${ap.price} - ${u.u} (${u.m})<br>👤 ${ap.cn} | 🆔 ${ap.ca} | 📱 ${ap.cm} | 🌐 IP:${ap.ip}</div>`;});});totalIncome.innerText='₹'+total;}
-function adminAddWallet(){let u=aUser.value.trim(),a=parseInt(aAmt.value);let f=users.find(x=>x.u==u);if(!f){adminMsg.innerText='Pai ni';return}f.b+=a;save();renderAdmin();adminMsg.innerText='₹'+a+' add holo '+u+' e';aUser.value='';aAmt.value='';}
-function logout(){location.reload()}
-</script>
-</body>
-</html><html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ASHIK CYBER CAFE - FINAL</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#0f172a;color:#fff;padding:10px}
-.card{background:#1e293b;padding:20px;border-radius:16px;max-width:900px;margin:15px auto}
-h2{text-align:center;color:#38bdf8}
-input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155}
-.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:8px}
-.b1{background:#38bdf8;color:#000}
-.b2{background:#22c55e;color:#000}
-.b3{background:#475569;color:#fff}
-.wallet{background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#000;padding:18px;border-radius:14px;text-align:center;margin:12px 0}
-.wallet h1{font-size:32px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.scard{background:#0f172a;border:1px solid #334155;padding:12px;border-radius:12px;cursor:pointer;text-align:center}
-.scard b{color:#38bdf8}
-.price{color:#facc15;font-weight:bold}
-.ret-box{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border-left:4px solid #22c55e}
-.info{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border:1px solid #334155;font-size:13px}
-</style>
-</head>
-<body>
-
-<div id="loginPage" class="card">
-<h2>ASHIK CYBER CAFE</h2>
-<input id="lu" placeholder="Username">
-<input id="lp" type="password" placeholder="Password">
-<button class="btn b1" onclick="login()">Login</button>
-<button class="btn b3" onclick="showReg()">New Register</button>
-</div>
-
-<div id="regPage" class="card" style="display:none">
-<h2>Retailer Registration</h2>
-<input id="ru" placeholder="Username"><input id="rp" type="password" placeholder="Password"><input id="rm" placeholder="Mobile"><input id="rn" placeholder="Name">
-<button class="btn b2" onclick="register()">Register</button>
-<button class="btn b3" onclick="showLogin()">Back</button>
-</div>
-
-<div id="retPage" class="card" style="display:none">
-<h2>Retailer Panel</h2>
-<div class="wallet"><p>💼 MY WALLET BALANCE</p><h1 id="wBal">₹0</h1><p id="wMob">Mobile: -</p><p id="wUser">User: -</p><p style="font-size:12px;margin-top:5px">Taka sesh hole Admin ke bolo</p></div>
-
-<h3>📋 Services</h3>
-<div class="grid">
-<div class="scard" onclick="selectService('Aadhar Mobile Link',180)"><b>Aadhar Mobile Link</b><br><span class="price">₹180</span></div>
-<div class="scard" onclick="selectService('Trade License',500)"><b>Trade License</b><br><span class="price">₹500</span></div>
-<div class="scard" onclick="selectService('Udyam Certificate',300)"><b>Udyam / MSME</b><br><span class="price">₹300</span></div>
-<div class="scard" onclick="selectService('PAN Card',250)"><b>PAN Card</b><br><span class="price">₹250</span></div>
-<div class="scard" onclick="selectService('Income Certificate',300)"><b>Income Certificate</b><br><span class="price">₹300</span></div>
-<div class="scard" onclick="selectService('Voter Card',150)"><b>Voter Card</b><br><span class="price">₹150</span></div>
-</div>
-
-<div id="applyBox" style="display:none;background:#0f172a;padding:15px;border-radius:12px;margin-top:15px;border:2px solid #38bdf8">
-<h3 id="selServiceName"></h3><p id="selPrice" class="price"></p>
-<input id="cName" placeholder="Customer Name"><input id="cAadhar" placeholder="Aadhar Number"><input id="cMob" placeholder="Customer Mobile"><input id="cExtra" placeholder="Address">
-<button class="btn b1" onclick="applyService()">Confirm Apply</button><p id="retMsg" style="color:#22c55e;margin-top:8px"></p>
-</div>
-<button class="btn" style="background:#ef4444;color:#fff;margin-top:20px" onclick="logout()">Logout</button>
-</div>
-
-<div id="adminPage" class="card" style="display:none;max-width:1000px">
-<h2>👑 ADMIN - ASHIK</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div style="background:#334155;padding:12px;border-radius:10px;text-align:center"><b>💰 Total Income</b><h1 id="totalIncome" style="color:#22c55e">₹0</h1></div>
-<div style="background:#334155;padding:12px;border-radius:10px"><b>Manual Wallet Add</b><input id="aUser" placeholder="Retailer Username"><input id="aAmt" type="number" placeholder="Amount"><button class="btn b2" onclick="adminAddWallet()">Add Wallet</button><p id="adminMsg" style="font-size:12px;color:#22c55e"></p></div>
-</div>
-<h3 style="margin-top:15px">👥 Retailers</h3><div id="retList"></div>
-<h3 style="margin-top:15px">📑 Applications</h3><div id="appList"></div>
-<button class="btn" style="background:#ef4444;color:#fff" onclick="logout()">Logout</button>
-</div>
-
-<script>
-let users=JSON.parse(localStorage.getItem('ac_users_v2')||'[]');
-let selService={};let cur=null;
-function save(){localStorage.setItem('ac_users_v2',JSON.stringify(users));}
-function showReg(){loginPage.style.display='none';regPage.style.display='block'}
-function showLogin(){regPage.style.display='none';loginPage.style.display='block'}
-function register(){let u=ru.value.trim(),p=rp.value.trim(),m=rm.value.trim(),n=rn.value.trim();if(!u||!p||!m){alert('fill koro');return}if(users.find(x=>x.u==u)){alert('username ache');return}users.push({u,p,m,n,b:0,apps:[]});save();alert('Success');showLogin();}
-function login(){let u=lu.value.trim(),p=lp.value.trim();if(u==='ashik2248'&&p==='Ashik@2026'){cur={admin:true};loginPage.style.display='none';adminPage.style.display='block';renderAdmin();return;}let f=users.find(x=>x.u==u&&x.p==p);if(!f){alert('wrong');return}cur=f;loginPage.style.display='none';retPage.style.display='block';renderRet();}
-async function getIP(){try{let r=await fetch('https://api.ipify.org?format=json');let j=await r.json();return j.ip;}catch{return 'IP-not-found'}}
-function renderRet(){wBal.innerText='₹'+cur.b;wMob.innerText='Mobile: '+cur.m;wUser.innerText='User: '+cur.u;}
-function selectService(name,price){selService={name,price};selServiceName.innerText=name;selPrice.innerText='Price: ₹'+price;applyBox.style.display='block';}
-async function applyService(){if(cur.b<selService.price){alert('Balance kom! Admin ke taka dite bolo. Balance: ₹'+cur.b);return}let cn=cName.value.trim(),ca=cAadhar.value.trim(),cm=cMob.value.trim(),ce=cExtra.value.trim();if(!cn||!ca||!cm){alert('Name+Aadhar+Mobile dao');return}let ip=await getIP();cur.b-=selService.price;cur.apps.push({service:selService.name,price:selService.price,cn,ca,cm,ce,ip,dt:new Date().toLocaleString()});save();renderRet();retMsg.innerText='✅ Apply Success!';cName.value='';cAadhar.value='';cMob.value='';cExtra.value='';}
-function renderAdmin(){retList.innerHTML='';appList.innerHTML='';let total=0;users.forEach(u=>{retList.innerHTML+=`<div class="ret-box"><b>${u.u}</b> 📱 ${u.m} | 💰 ₹${u.b}</div>`;u.apps.forEach(ap=>{total+=ap.price;appList.innerHTML+=`<div class="info"><b>${ap.service}</b> - ₹${ap.price} - ${u.u} (${u.m})<br>👤 ${ap.cn} | 🆔 ${ap.ca} | 📱 ${ap.cm} | 🌐 IP:${ap.ip}</div>`;});});totalIncome.innerText='₹'+total;}
-function adminAddWallet(){let u=aUser.value.trim(),a=parseInt(aAmt.value);let f=users.find(x=>x.u==u);if(!f){adminMsg.innerText='Pai ni';return}f.b+=a;save();renderAdmin();adminMsg.innerText='₹'+a+' add holo '+u+' e';aUser.value='';aAmt.value='';}
-function logout(){location.reload()}
-</script>
-</body>
-</html><html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ASHIK CYBER CAFE - AUTO PAY</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#0f172a;color:#fff;padding:10px}
-.card{background:#1e293b;padding:20px;border-radius:16px;max-width:900px;margin:15px auto}
-h2{text-align:center;color:#38bdf8}
-input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155}
-.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:8px}
-.b1{background:#38bdf8;color:#000}
-.b2{background:#22c55e;color:#000}
-.b3{background:#475569;color:#fff}
-.wallet{background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#000;padding:18px;border-radius:14px;text-align:center;margin:12px 0}
-.wallet h1{font-size:32px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.scard{background:#0f172a;border:1px solid #334155;padding:12px;border-radius:12px;cursor:pointer;text-align:center}
-.scard b{color:#38bdf8}
-.price{color:#facc15;font-weight:bold}
-.ret-box{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border-left:4px solid #22c55e}
-.info{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;border:1px solid #334155;font-size:13px}
-</style>
-</head>
-<body>
-
-<div id="loginPage" class="card">
-<h2>ASHIK CYBER CAFE</h2>
-<input id="lu" placeholder="Username">
-<input id="lp" type="password" placeholder="Password">
-<button class="btn b1" onclick="login()">Login</button>
-<button class="btn b3" onclick="showReg()">New Register</button>
-<p style="text-align:center;font-size:11px;margin-top:8px;color:#94a3b8">Admin: ashik2248 / Ashik@2026<br>UPI: 6289361870-10@axl</p>
-</div>
-
-<div id="regPage" class="card" style="display:none">
-<h2>Retailer Registration</h2>
-<input id="ru" placeholder="Username">
-<input id="rp" type="password" placeholder="Password">
-<input id="rm" placeholder="Mobile">
-<input id="rn" placeholder="Name">
-<button class="btn b2" onclick="register()">Register</button>
-<button class="btn b3" onclick="showLogin()">Back</button>
-</div>
-
-<div id="retPage" class="card" style="display:none">
-<h2>Retailer Panel</h2>
-<div class="wallet">
-<p>💼 MY WALLET</p>
-<h1 id="wBal">₹0</h1>
-<p id="wMob">Mobile: -</p>
-<p id="wUser">User: -</p>
-</div>
-
-<div style="background:#334155;padding:12px;border-radius:10px">
-<b>💰 AUTO WALLET RECHARGE</b><br><span style="font-size:12px">Amount dao -> Pay Now -> UPI khulbe -> Pay korlei Auto Wallet e add</span>
-<input id="payAmt" type="number" placeholder="Amount jemon 500">
-<input id="payUtr" placeholder="UTR (Optional)">
-<button class="btn b2" onclick="autoPay()">⚡ Pay Now - Auto Add</button>
-<p id="payMsg" style="font-size:12px;color:#22c55e;margin-top:5px"></p>
-</div>
-
-<hr style="margin:15px 0;border-color:#334155">
-<h3>📋 Services</h3>
-<div class="grid">
-<div class="scard" onclick="selectService('Aadhar Mobile Link',180)"><b>Aadhar Mobile Link</b><br><span class="price">₹180</span></div>
-<div class="scard" onclick="selectService('Trade License',500)"><b>Trade License</b><br><span class="price">₹500</span></div>
-<div class="scard" onclick="selectService('Udyam Certificate',300)"><b>Udyam / MSME</b><br><span class="price">₹300</span></div>
-<div class="scard" onclick="selectService('PAN Card',250)"><b>PAN Card</b><br><span class="price">₹250</span></div>
-<div class="scard" onclick="selectService('Income Certificate',300)"><b>Income Certificate</b><br><span class="price">₹300</span></div>
-<div class="scard" onclick="selectService('Voter Card',150)"><b>Voter Card</b><br><span class="price">₹150</span></div>
-</div>
-
-<div id="applyBox" style="display:none;background:#0f172a;padding:15px;border-radius:12px;margin-top:15px;border:2px solid #38bdf8">
-<h3 id="selServiceName"></h3>
-<p id="selPrice" class="price"></p>
-<input id="cName" placeholder="Customer Name">
-<input id="cAadhar" placeholder="Aadhar Number">
-<input id="cMob" placeholder="Customer Mobile">
-<input id="cExtra" placeholder="Address">
-<button class="btn b1" onclick="applyService()">Confirm Apply</button>
-<p id="retMsg" style="color:#22c55e;margin-top:8px"></p>
-</div>
-<button class="btn" style="background:#ef4444;color:#fff;margin-top:20px" onclick="logout()">Logout</button>
-</div>
-
-<div id="adminPage" class="card" style="display:none;max-width:1000px">
-<h2>👑 ADMIN - ASHIK</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div style="background:#334155;padding:12px;border-radius:10px;text-align:center">
-<b>💰 Total Income (Tomar Axis e)</b>
-<h1 id="totalIncome" style="color:#22c55e">₹0</h1>
-</div>
-<div style="background:#334155;padding:12px;border-radius:10px">
-<b>Manual Add</b>
-<input id="aUser" placeholder="Retailer Username">
-<input id="aAmt" type="number" placeholder="Amount">
-<button class="btn b2" onclick="adminAddWallet()">Add</button>
-<p id="adminMsg" style="font-size:12px;color:#22c55e"></p>
-</div>
-</div>
-<h3 style="margin-top:15px">👥 Retailers</h3><div id="retList"></div>
-<h3 style="margin-top:15px">📑 All Applications (IP + Aadhar)</h3><div id="appList"></div>
-<button class="btn" style="background:#ef4444;color:#fff" onclick="logout()">Logout</button>
-</div>
-
-<script>
-let users=JSON.parse(localStorage.getItem('ac_users_v2')||'[]');
-let selService={};let cur=null;
-function save(){localStorage.setItem('ac_users_v2',JSON.stringify(users));}
-function showReg(){loginPage.style.display='none';regPage.style.display='block'}
-function showLogin(){regPage.style.display='none';loginPage.style.display='block'}
-function register(){let u=ru.value.trim(),p=rp.value.trim(),m=rm.value.trim(),n=rn.value.trim();if(!u||!p||!m){alert('fill koro');return}if(users.find(x=>x.u==u)){alert('username ache');return}users.push({u,p,m,n,b:0,req:[],apps:[]});save();alert('Success');showLogin();}
-function login(){let u=lu.value.trim(),p=lp.value.trim();if(u=='ashik2248'&&p=='Ashik@2026'){cur={admin:true};loginPage.style.display='none';adminPage.style.display='block';renderAdmin();return;}let f=users.find(x=>x.u==u&&x.p==p);if(!f){alert('wrong');return}cur=f;loginPage.style.display='none';retPage.style.display='block';renderRet();}
-async function getIP(){try{let r=await fetch('https://api.ipify.org?format=json');let j=await r.json();return j.ip;}catch{return 'IP-not-found'}}
-function renderRet(){wBal.innerText='₹'+cur.b;wMob.innerText='Mobile: '+cur.m;wUser.innerText='User: '+cur.u;}
-function autoPay(){
- let a=parseInt(payAmt.value); if(!a){alert('Amount dao');return}
- let upiLink=`upi://pay?pa=6289361870-10@axl&pn=ASHIK%20CYBER%20CAFE&am=${a}&cu=INR`;
- window.location.href=upiLink;
- setTimeout(()=>{
-  cur.b+=a;
-  cur.req.push({a,utr:payUtr.value||'AUTO-PAY',status:'Approved',dt:new Date().toLocaleString()});
-  save(); renderRet();
-  payMsg.innerText='✅ Payment Complete! ₹'+a+' Wallet e add hoyeche! (Axis Account e chole geche)';
-  payAmt.value='';payUtr.value='';
- },2000);
-}
-function selectService(name,price){selService={name,price};selServiceName.innerText=name;selPrice.innerText='Price: ₹'+price;applyBox.style.display='block';}
-async function applyService(){
- if(cur.b<selService.price){alert('Balance kom! Balance: ₹'+cur.b);return}
- let cn=cName.value.trim(),ca=cAadhar.value.trim(),cm=cMob.value.trim(),ce=cExtra.value.trim();
- if(!cn||!ca||!cm){alert('Name + Aadhar + Mobile dao');return}
- let ip=await getIP();
- cur.b-=selService.price;
- cur.apps.push({service:selService.name,price:selService.price,cn,ca,cm,ce,ip,dt:new Date().toLocaleString()});
- save();renderRet();retMsg.innerText='✅ Apply Success! Taka Ashik er Axis Account e joma holo!';
- cName.value='';cAadhar.value='';cMob.value='';cExtra.value='';
-}
-function renderAdmin(){retList.innerHTML='';appList.innerHTML='';let total=0;users.forEach(u=>{retList.innerHTML+=`<div class="ret-box"><b>${u.u}</b> 📱 ${u.m} | 💰 ₹${u.b}</div>`;u.apps.forEach(ap=>{total+=ap.price;appList.innerHTML+=`<div class="info"><b>${ap.service}</b> - ₹${ap.price} - Retailer: ${u.u} (${u.m})<br>👤 ${ap.cn} | 🆔 ${ap.ca} | 📱 ${ap.cm} | 🌐 IP:${ap.ip} | 🕒 ${ap.dt}</div>`;});});totalIncome.innerText='₹'+total;}
-function adminAddWallet(){let u=aUser.value.trim(),a=parseInt(aAmt.value);let f=users.find(x=>x.u==u);if(!f){adminMsg.innerText='Pai ni';return}f.b+=a;save();renderAdmin();adminMsg.innerText='Add holo';}
+function renderRet(){wBal.innerText='₹'+cur.b;wMob.innerText='Mobile: '+cur.m;wUser.innerText='User: '+cur.u}
+function selectService(name,price){selService={name,price};selServiceName.innerText=name;selPrice.innerText='Price: ₹'+price;applyBox.style.display='block'}
+async function applyService(){if(cur.b<selService.price){alert('Balance kom! Admin ke bolo. Balance: ₹'+cur.b);return}let cn=cName.value.trim(),ca=cAadhar.value.trim(),cm=cMob.value.trim(),ce=cExtra.value.trim();if(!cn||!ca||!cm){alert('Name+Aadhar+Mobile dao');return}let ip=await getIP();cur.b-=selService.price;cur.apps.push({service:selService.name,price:selService.price,cn,ca,cm,ce,ip,dt:new Date().toLocaleString()});save();renderRet();retMsg.innerText='✅ Apply Success!'}
+function renderAdmin(){retList.innerHTML='';appList.innerHTML='';let total=0;users.forEach(u=>{retList.innerHTML+=`<div class="ret-box"><b>${u.u}</b> 📱 ${u.m} | 💰 ₹${u.b}</div>`;u.apps.forEach(ap=>{total+=ap.price;appList.innerHTML+=`<div class="info"><b>${ap.service}</b> - ₹${ap.price} - ${u.u} (${u.m})<br>👤 ${ap.cn} | 🆔 ${ap.ca} | 📱 ${ap.cm} | 🌐 IP:${ap.ip}</div>`})});totalIncome.innerText='₹'+total}
+function adminAddWallet(){let u=aUser.value.trim(),a=parseInt(aAmt.value);let f=users.find(x=>x.u==u);if(!f){adminMsg.innerText='Pai ni';return}f.b+=a;save();renderAdmin();adminMsg.innerText='₹'+a+' add holo '+u}
 function logout(){location.reload()}
 </script>
 </body>
